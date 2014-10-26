@@ -57,3 +57,5 @@ gem 'figaro'
 
 gem 'momentjs-rails', '~> 2.7.0'
 
+gem 'httparty'
+
