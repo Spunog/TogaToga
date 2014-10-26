@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :movies
 
-  match 'users/sign_up', to: 'info#registrations', via: [:get, :post]
+  # match 'users/sign_up', to: 'info#registrations', via: [:get, :post]
   devise_for :users
 
 

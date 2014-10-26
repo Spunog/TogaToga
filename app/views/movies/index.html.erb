@@ -18,12 +18,6 @@
   <% end %>
 </div>
 
-<div class="row">
-  <div class="col-sm-12">
-    <%= link_to 'New Movie', new_movie_path, class:'btn btn-primary' %>
-  </div>
-</div>
-
 <div class="row text-center">
   <%= will_paginate @movies,previous_label: h("<"), next_label: h(">"), renderer: BootstrapPagination::Rails %>  
 </div>
