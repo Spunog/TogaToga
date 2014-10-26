@@ -71,17 +71,23 @@
     <div class="container theme-showcase">
 
       <% if notice || alert %>
-        <div class="page-header">
+        <div>
           <% if notice %>
-            <div class="alert alert-info notice">
+
+            <div class="alert alert-warning alert-dismissible notice" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <%= notice %>
             </div>
+
           <% end %>
 
           <% if alert %>
-            <div class="alert alert-warning">
+
+            <div class="alert alert-info alert-dismissible notice" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
               <%= alert %>
             </div>
+
           <% end %>
         </div>
       <% end %>
