@@ -1,76 +1,25 @@
 <h1>Trending Movies</h1>
 
-<% @movies.each do |movie| %>
-  
-  <div class="row">
-    
-    <div class="col-md-2">
-      <div class="panel text-center">
+<div class="row">
+  <% @movies.each_with_index do |movie,index| %>
+
+    <div class="movie-square col-lg-2 col-md-3 col-sm-6 col-xs-12">
+      <div class="thumbnail">
         <%= image_tag(movie.poster.gsub(/.jpg/, '-138.jpg'), size: "138x197") %>
+      </div>
+      <div class="caption">
+        <h3><%= movie.title %></h3>
+        <p><%= movie.tagline %></p>
       </div>
     </div>
 
-    <div class="col-md-10">
+  <% end %>
+</div>
 
-      <div class="panel panel-default">
-        
-        <div class="panel-heading">
-          <h2><%= movie.title %></h2>
-          <h6><%= movie.tagline %></h6>
-        </div>
-
-        <div class="panel-body">
-          
-          <!-- General Info -->
-          <div class="row">
-            <div class="col-md-3">
-              <label>Year:</label>
-              <span><%= movie.year %></span>
-            </div>
-            <div class="col-md-3">
-              <label>Released:</label>
-              <span><%= movie.released %></span>
-            </div>
-            <div class="col-md-3">
-              <label>Certification:</label>
-              <span><%= movie.certification %></span>
-            </div>
-          </div>
-
-          <!-- Links -->
-          <div class="row">
-            <div class="col-md-3">
-              <label>More Info:</label>
-              <span><%= link_to movie.title, movie %></span>
-            </div>
-            <div class="col-md-3">
-              <label>IMDB:</label>
-              <span><%= link_to 'Link', "http://www.imdb.com/title/#{movie.imdb_id}" %></span>
-            </div>
-            <div class="col-md-3">
-              <label>TRAK:</label>
-              <span><%= link_to 'Link', movie.url %></span>
-            </div>
-          </div>
-          <!-- Stats -->
-          <div class="row">
-            <div class="col-md-12">
-                <label>Watchers:</label>
-                <span><%= movie.watchers %></span>
-            </div>
-          </div>
-        </div><!-- end panel body -->
-
-      </div>  <!-- end panel -->
-
-    </div> <!-- end right side -->
-    
-  </div> <!-- end main row -->
-
-<% end %>
-
-<div class="text-center">
-  <%= link_to 'New Movie', new_movie_path, class:'btn btn-primary' %>
+<div class="row">
+  <div class="col-sm-12">
+    <%= link_to 'New Movie', new_movie_path, class:'btn btn-primary' %>
+  </div>
 </div>
 
 <div class="row text-center">

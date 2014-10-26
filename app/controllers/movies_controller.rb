@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   # GET /movies
   # GET /movies.json
   def index
-    per_page = (params.has_key?(:per_page) && params[:per_page].to_i != 0) ? params[:per_page].to_i : 9
+    per_page = (params.has_key?(:per_page) && params[:per_page].to_i != 0) ? params[:per_page].to_i : 24
     @movies = Movie.all.page(params[:page]).per_page(per_page)
   end
 
