@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
 
   get 'movies/refresh'
+  get 'info/registrations'
+
   resources :movies
 
+  match 'users/sign_up', to: 'info#registrations', via: [:get, :post]
   devise_for :users
-  #get 'home/index'
 
 
   root 'movies#index'
