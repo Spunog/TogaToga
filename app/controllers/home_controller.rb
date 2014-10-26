@@ -1,9 +1,8 @@
 class HomeController < ApplicationController
-  def index
-  	# render layout: "superhero"
+	before_filter :authenticate_user! #, :except => [:index]
 
-	@movies = Movie.all
-
-
-  end
+	def index
+		# render layout: "superhero"
+		@movies = Movie.all
+	end
 end

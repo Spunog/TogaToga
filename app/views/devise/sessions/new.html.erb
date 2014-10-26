@@ -1,17 +1,42 @@
-<h2>Sign in</h2>
+<div class="row">
+	<div class="col-md-offset-3 col-md-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+			<span class="glyphicon glyphicon-lock"></span> Sign In</div>
+			<div class="panel-body">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+				<%= form_for(resource, :html => {:class => "form-horizontal"}, as: resource_name, url: session_path(resource_name)) do |f| %>
+					
+					<div class="form-group">
+						<%= f.label :email, class:"col-sm-4 control-label" %>
+						<div class="col-sm-8">
+							<%= f.text_field :email, autofocus: true, class:"col-sm-9" %>
+						</div>
+					</div>
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+					<div class="form-group">
+						<%= f.label :password, class:"col-sm-4 control-label" %>
+						<div class="col-sm-8">
+							<%= f.password_field :password, autocomplete: "off", class:"col-sm-9" %>
+						</div>
+					</div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+					<% if devise_mapping.rememberable? %>
+						<div class="col-sm-offset-4 col-sm-6 text-right">
+							<%= f.check_box :remember_me %> <%= f.label :remember_me %>
+						</div>
+					<% end %>
 
-  <div><%= f.submit "Sign in" %></div>
-<% end %>
+					<div class="clearfix"></div>
 
-<%= render "devise/shared/links" %>
+					<div class="text-center">
+						<%= f.submit "Sign in", class:"btn btn-primary margin_top margin_bottom" %>
+					</div>
+
+				<% end %>
+
+			</div>
+			<div class="panel-footer"><%= render "devise/shared/links" %></div>
+		</div>
+	</div>
+</div>

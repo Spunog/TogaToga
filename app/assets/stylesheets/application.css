@@ -14,3 +14,4 @@
  *= require_self
  *= require movies
  */
+ body { padding-top: 70px; }
