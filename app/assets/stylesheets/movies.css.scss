@@ -15,7 +15,11 @@
 		overflow: hidden;
 		cursor: help;
 	}
+}
 
+.movie.active{
+	color:orange;
+	font-weight:bold;
 }
 
 .movie-info {
