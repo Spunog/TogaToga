@@ -1,5 +1,7 @@
 (function () {
 
+	var lastMovieID = 0;
+
 	//Main Functions
 	function movieGetRenderedTemplate(data){
 		var templateMovie = $('#template-movie-info').html();
@@ -25,19 +27,28 @@
 	//Events
 	$(".js-movie-poster").on('click',function() {
 		var movieID = $(this).parents('.js-movie-item').attr('data-movie-id');
-		var infoURL  =   movieID + ".json";
 
-		$.ajax({
-			        type: "GET",
-			        url:infoURL,
-			        dataType:'json',
-			        success: function( data, textStatus , jqXHR)
-		                      {
-	                      		var rendered = movieGetRenderedTemplate(data);
-		                        $('body').append(rendered);
-		                      },
-			        error: connectionFailed
-				});
+		if(lastMovieID == movieID){
+			lastMovieID = 0;
+			$(".js-movie-info-container").empty(); //clear previous items
+		}else{
+			lastMovieID = movieID;
+			var infoURL  =   'movies/' + movieID + ".json";
+			$.ajax({
+				        type: "GET",
+				        url:infoURL,
+				        dataType:'json',
+				        success: function( data, textStatus , jqXHR)
+			                      {
+		                      		var rendered = movieGetRenderedTemplate(data);
+		                      		$(".js-movie-info-container").empty(); //clear previous items
+			                        $(".js-movie-info-container").html(rendered);
+			                      },
+				        error: connectionFailed
+					});
+		}
+
+		
 	});
 
 	$(".js-movie-item").mouseleave(function () {
