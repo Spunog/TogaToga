@@ -38,17 +38,17 @@
 
     <% if (index + 1) % 6 == 0 %>
        <!-- Large Movie Info -->
-      <div class="col-lg-12 visible-lg-block js-movie-info-container"></div>
+      <div class="col-lg-12 visible-lg-block js-movie-info-container js-movie-info-container-lg"></div>
     <% end %>
 
     <% if (index + 1) % 4 == 0 %>
        <!-- Medium Movie Info -->
-      <div class="col-md-12 visible-md-block js-movie-info-container"></div>
+      <div class="col-md-12 visible-md-block js-movie-info-container js-movie-info-container-md"></div>
     <% end %>
 
     <% if (index + 1) % 2 == 0 %>
        <!-- Small Movie Info -->
-      <div class="col-xs-12 visible-sm-block visible-xs-block js-movie-info-container"></div>
+      <div class="col-xs-12 visible-sm-block visible-xs-block js-movie-info-container js-movie-info-container-xs"></div>
     <% end %>
 
   <% end %>
@@ -62,28 +62,34 @@
 <script id="template-movie-info" type="x-tmpl-mustache">
 
   <div class="movie-info js-movie-info-{{ id }}">
-  
-    <h5>
-      {{ title }}
-      <small class="pull-right">
-        Released:  
-        {{ released_formatted }}
-      </small>
-    </h5>
-    <h6><em>{{ tagline }}</em></h6>
-  
-    <strong>Summary:</strong>
-    <p class="movie-info-overview">
-      {{ overview }}
-    </p>
-  
-    <div>
-      <span class="label label-default">Rating: {{ certification }}</span>
-      <span class="label label-default">Runtime: {{ runtime }} mins</span>
-      <span class="label label-info"><a href="http://www.imdb.com/title/{{ imdb_id }}">IMDB</a></span>
-      <span class="label label-info">
-        <a href="{{ trailer }}"><i class="fa fa-youtube"></i> YouTube</a>
-      </span>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          {{ title }}
+          <div class="pull-right">
+            <span class="label label-primary">Released:  {{ released_formatted }}</span>
+            <span class="label label-primary">Rating: {{ certification }}</span>
+            <span class="label label-primary">Runtime: {{ runtime }} mins</span>
+          </div>
+        </h3>
+        {{#tagline.length}}
+          <h6><em>{{ tagline }}</em></h6>
+        {{/tagline.length}}
+      </div>
+      <div class="panel-body">
+        <strong>Summary:</strong>
+        <p class="movie-info-overview">
+          {{ overview }}
+        </p>
+      
+        <div>
+          <span class="label label-info"><a href="http://www.imdb.com/title/{{ imdb_id }}">IMDB</a></span>
+          <span class="label label-info">
+            <a href="{{ trailer }}"><i class="fa fa-youtube"></i> YouTube</a>
+          </span>
+        </div>
+      </div>
     </div>
   
   </div>

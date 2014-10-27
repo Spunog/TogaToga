@@ -43,6 +43,18 @@
 		                      		var rendered = movieGetRenderedTemplate(data);
 		                      		$(".js-movie-info-container").empty(); //clear previous items
 			                        $(".js-movie-info-container").html(rendered);
+
+			                        //Only use one set of info containers to display info
+			                        var movieID = data.id;
+			                        var $clickedMovie = $(".js-movie-item-" + movieID);
+
+			                        //Clear Previous Containers
+			                        $clickedMovie.prevAll(".js-movie-info-container").empty();
+
+			                        //Clear containers after the first matching container
+			                        $clickedMovie.nextAll('.js-movie-info-container-lg').first().nextAll('.js-movie-info-container-lg').empty();
+			                        $clickedMovie.nextAll('.js-movie-info-container-md').first().nextAll('.js-movie-info-container-md').empty();
+			                        $clickedMovie.nextAll('.js-movie-info-container-xs').first().nextAll('.js-movie-info-container-xs').empty();
 			                      },
 				        error: connectionFailed
 					});

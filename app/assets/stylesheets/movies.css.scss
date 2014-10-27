@@ -3,11 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .movie{
+
 	.movie-title{
 		height: 60px;
 		overflow: hidden;
 		text-align: center;
-		// background: red;
 	}
 
 	.movie-poster{
@@ -16,20 +16,12 @@
 		cursor: help;
 	}
 
-	.movie-info {
-	    left: 166px;
+}
 
-	    .label-info a{
-	    	color:white;
-	    }
+.movie-info {
+    left: 166px;
 
-	}
-
-	.movie-info-overview{
-		max-height:200px;
-		overflow:auto;
-		padding: 0 1em 1em;
-		display:inline-block;
-	}
-
+    .label-info a{
+    	color:white;
+    }
 }
