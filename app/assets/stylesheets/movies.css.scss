@@ -22,6 +22,36 @@
 	font-weight:bold;
 }
 
+.fanart-header {
+	height: 300px;
+	display: block;
+	position: relative;
+	border: 2px inset #141E28;
+	margin: 0 auto;
+
+	.poster{
+		margin-top:20%;
+	}
+
+	.quicklinks{
+		margin-right:1em;
+	}
+
+}
+
+.fanart-header:after {
+  background-size:100%;
+  background-repeat: no-repeat;
+  opacity: 0.25;
+  height: 300px;
+  width:100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: -1;
+  content: "";
+}
+
 .movie-info {
     left: 166px;
 

@@ -1,69 +1,63 @@
-<p id="notice"><%= notice %></p>
+<ol class="breadcrumb">
+  <li><%= link_to 'Trending Movies', movies_path %></li>
+  <li class="active"><%= @movie.title %></li>
+</ol>
 
-<p>
-  <strong>Title:</strong>
-  <%= @movie.title %>
-</p>
+<style>
+  .fanart-header:after {
+    background-image: url(<%= @fanArtURL %>);
+  }
+</style>
 
-<p>
-  <strong>Year:</strong>
-  <%= @movie.year %>
-</p>
+<div class="row" style="margin-top:0">
 
-<p>
-  <strong>Overview:</strong>
-  <%= @movie.overview %>
-</p>
+  <div class="col-md-12">
+    <div class="img-responsive">
+      <div class="fanart-header">
 
-<p>
-  <strong>Released:</strong>
-  <%= @movie.released %>
-</p>
+        <div class="row">
 
-<p>
-  <strong>Url:</strong>
-  <%= @movie.url %>
-</p>
+          <!-- Left Side -->
+          <div class="col-md-3">
+            <%= image_tag(@posterURL, size: "138x197", class: 'img-responsive poster') %>
+          </div>
 
-<p>
-  <strong>Trailer:</strong>
-  <%= @movie.trailer %>
-</p>
+          <!-- Right Side -->
+          <div class="col-md-9">
 
-<p>
-  <strong>Runtime:</strong>
-  <%= @movie.runtime %>
-</p>
+            <h1><%= @movie.title %></h1>
+            <h6><em><%= @movie.tagline %></em></h6>
+            <p><%= @movie.overview %></p>
 
-<p>
-  <strong>Tagline:</strong>
-  <%= @movie.tagline %>
-</p>
+            <div class="pull-right quicklinks">
+              <span class="label label-info hidden-sm hidden-xs">Released: <%= @movie.released_formatted %></span>
+              <span class="label label-info">Rating: <%= @movie.certification %></span>
+              <span class="label label-info hidden-xs">Runtime: <%= @movie.runtime %> mins</span>
 
-<p>
-  <strong>Certification:</strong>
-  <%= @movie.certification %>
-</p>
+              <% if @movie.imdb_id %>
+                <span class="label label-info"><a href="http://www.imdb.com/title/<%= @movie.imdb_id %>">IMDB</a></span>
+              <% end %>
+              
+              <% if @movie.trailer %>
+                <span class="label label-info">
+                  <a href="<%= @movie.trailer %>"><i class="fa fa-youtube">YouTube</i></a>
+                </span>
+              <% end %>
 
-<p>
-  <strong>Imdb:</strong>
-  <%= @movie.imdb_id %>
-</p>
+            </div>
 
-<p>
-  <strong>Tmdb:</strong>
-  <%= @movie.tmdb_id %>
-</p>
+          </div><!-- end col -->
 
-<p>
-  <strong>Poster:</strong>
-  <%= @movie.poster %>
-</p>
+        </div><!-- end row -->
 
-<p>
-  <strong>Watchers:</strong>
-  <%= @movie.watchers %>
-</p>
+          
+      </div>
+    </div>
+  </div>
 
-<%= link_to 'Edit', edit_movie_path(@movie) %> |
-<%= link_to 'Back', movies_path %>
+</div>
+
+<% if false %>
+  <%= link_to 'Edit', edit_movie_path(@movie) %> |
+  <%= link_to 'Back', movies_path %>
+<% end %>

@@ -12,6 +12,10 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    fanart = @movie.images.find_by! type_id: 'fanart'
+    poster = @movie.images.find_by! type_id: 'poster'
+    @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
+    @posterURL = poster.url.gsub(/.jpg/,'-138.jpg') # use smaller poster for faster loading
   end
 
   # GET /movies/new
@@ -35,6 +39,8 @@ class MoviesController < ApplicationController
         movieslist = response
         movieslist.each do |movie_feed|
           movie = Movie.new
+
+          # Main Details
           movie.title         =   movie_feed['title']
           movie.year          =   movie_feed['year']
           movie.released      =   movie_feed['released']
@@ -48,6 +54,21 @@ class MoviesController < ApplicationController
           movie.tmdb_id       =   movie_feed['tmdb_id']
           movie.poster        =   movie_feed['poster']
           movie.watchers      =   movie_feed['watchers']
+
+          # Images - Poster
+          if movie_feed['images'].has_key?("poster")
+            poster = movie.images.new
+            poster.type_id = 'poster'
+            poster.url = movie_feed['images']['poster']
+          end
+
+          # Images - Fanart
+          if movie_feed['images'].has_key?("fanart")
+            fanart = movie.images.new
+            fanart.type_id = 'fanart'
+            fanart.url = movie_feed['images']['fanart']
+          end
+
           movie.save!
         end
       when 404
