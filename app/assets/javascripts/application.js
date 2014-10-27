@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require mustache
+//= require site
 //= require movies
 //= require turbolinks
-
-

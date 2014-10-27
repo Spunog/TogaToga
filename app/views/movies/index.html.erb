@@ -5,55 +5,28 @@
 <div class="row">
   <% @movies.each_with_index do |movie,index| %>
 
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 movie js-movie-item" data-movie-id="<%= index %>">
+    <!-- Movie: Container -->
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 movie js-movie-item js-movie-item-<%= index %>"
+         data-movie-id="<%= movie.id %>">
 
+      <!-- Movie: Poster -->
       <div class="row">
-        <div class="col-md-12 movie-poster js-movie-poster" data-movie-id="<%= index %>">
+        <div class="col-md-12 movie-poster js-movie-poster">
           <div class="poster-container">
             <%= image_tag(movie.poster.gsub(/.jpg/, '-138.jpg'), size: "138x197", class: 'img-responsive') %>
           </div>
         </div>
       </div>
 
-      <% if index == 0 %>
-
-        <div class="row"> <!-- begin info -->
-          <div class="col-md-12 movie-info hide js-movie-info js-movie-info-<%= index %>">
-
-            <h5>
-              <%= movie.title %>
-              <small class="pull-right">Released:  <%= Time.at(movie.released).to_datetime.strftime("%d %b %Y") %></small>
-            </h5>
-            <h6><em><%= movie.tagline %></em></h6>
-
-            <strong>Summary:</strong>
-            <p class="movie-info-overview">
-              <%= movie.overview %>
-            </p>
-
-            <div>
-              <span class="label label-default">Rating: <%= movie.certification %></span>
-              <span class="label label-default">Runtime: <%= movie.runtime %> mins</span>
-              <span class="label label-info"><%= link_to :IMDB, movie.trailer %></span>
-              <span class="label label-info">
-                <%= link_to movie.trailer do %>
-                  <i class="fa fa-youtube"></i> YouTube
-                <% end %>
-              </span>
-            </div>
-
-          </div>
-        </div> <!-- end title -->  
-      <% end %>
-
-      <!-- Title -->
+      <!-- Movie: Title -->
       <div class="row">
         <div class="col-md-12 movie-title">
           <small><%= truncate(movie.title, length: 25) %></small>
         </div>
-      </div> <!-- end title -->      
+      </div>   
 
-      <div class="row hide">
+      <!-- Admin -->
+      <div class="row">
         <div class="col-md-12 movie-misc">
           <small><%= movie.tagline %></small>
           <%= link_to :Edit, movie %>
@@ -69,3 +42,37 @@
 <div class="row text-center">
   <%= will_paginate @movies,previous_label: h("<"), next_label: h(">"), renderer: BootstrapPagination::Rails %>  
 </div>
+
+<!-- Javascript HTML template used for JSON loading -->
+<script id="template-movie-info" type="x-tmpl-mustache">
+
+  <div class="js-movie-info-{{ id }}">
+    <div class="col-md-offset-1 col-md-10 movie-info">
+    
+      <h5>
+        {{ title }}
+        <small class="pull-right">
+          Released:  
+          {{ released }}
+        </small>
+      </h5>
+      <h6><em>{{ tagline }}</em></h6>
+    
+      <strong>Summary:</strong>
+      <p class="movie-info-overview">
+        {{ overview }}
+      </p>
+    
+      <div>
+        <span class="label label-default">Rating: {{ certification }}</span>
+        <span class="label label-default">Runtime: {{ runtime }} mins</span>
+        <span class="label label-info"><a href="http://www.imdb.com/title/{{ imdb_id }}">IMDB</a></span>
+        <span class="label label-info">
+          <a href="{{ trailer }}"><i class="fa fa-youtube"></i> YouTube</a>
+        </span>
+      </div>
+    
+    </div>
+  </div>
+
+</script>
