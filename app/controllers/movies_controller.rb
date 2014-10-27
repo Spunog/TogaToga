@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_filter :authenticate_user! #, :except => [:index]
+  before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
 
   # GET /movies
