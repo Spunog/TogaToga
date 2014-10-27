@@ -14,5 +14,6 @@
  *= require_self
  *= require movies
  *= require info
+ *= require font-awesome
  */
  body { padding-top: 70px; }

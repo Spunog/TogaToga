@@ -5,15 +5,61 @@
 <div class="row">
   <% @movies.each_with_index do |movie,index| %>
 
-    <div class="movie-square col-lg-2 col-md-3 col-sm-6 col-xs-12">
-      <div class="thumbnail">
-        <%= image_tag(movie.poster.gsub(/.jpg/, '-138.jpg'), size: "138x197") %>
+    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 movie js-movie-item" data-movie-id="<%= index %>">
+
+      <div class="row">
+        <div class="col-md-12 movie-poster js-movie-poster" data-movie-id="<%= index %>">
+          <div class="poster-container">
+            <%= image_tag(movie.poster.gsub(/.jpg/, '-138.jpg'), size: "138x197", class: 'img-responsive') %>
+          </div>
+        </div>
       </div>
-      <div class="caption">
-        <h3><%= movie.title %></h3>
-        <p><%= movie.tagline %></p>
+
+        <div class="row"> <!-- begin info -->
+          <div class="col-md-12 movie-info hide js-movie-info js-movie-info-<%= index %>">
+
+            <h5>
+              <%= movie.title %>
+              <small class="pull-right">Released:  <%= Time.at(movie.released).to_datetime.strftime("%d %b %Y") %></small>
+            </h5>
+            <h6><em><%= movie.tagline %></em></h6>
+
+            <strong>Summary:</strong>
+            <p class="movie-info-overview">
+              <%= movie.overview %>
+            </p>
+
+            <div>
+              <span class="label label-default">Rating: <%= movie.certification %></span>
+              <span class="label label-default">Runtime: <%= movie.runtime %> mins</span>
+              <span class="label label-info"><%= link_to :IMDB, movie.trailer %></span>
+              <span class="label label-info">
+                <%= link_to movie.trailer do %>
+                  <i class="fa fa-youtube"></i> YouTube
+                <% end %>
+              </span>
+            </div>
+
+          </div>
+        </div> <!-- end title -->  
+
+
+      <!-- Title -->
+      <div class="row">
+        <div class="col-md-12 movie-title">
+          <small><%= truncate(movie.title, length: 25) %></small>
+        </div>
+      </div> <!-- end title -->      
+
+      <div class="row hide">
+        <div class="col-md-12 movie-misc">
+          <small><%= movie.tagline %></small>
+          <%= link_to :Edit, movie %>
+          <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </div>
       </div>
-    </div>
+
+    </div>    
 
   <% end %>
 </div>

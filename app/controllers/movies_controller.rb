@@ -31,6 +31,7 @@ class MoviesController < ApplicationController
     case response.code
       when 200
         @result = '200 OK'
+        Movie.destroy_all
         movieslist = response
         movieslist.each do |movie_feed|
           movie = Movie.new
@@ -41,14 +42,13 @@ class MoviesController < ApplicationController
           movie.trailer       =   movie_feed['trailer']
           movie.runtime       =   movie_feed['runtime']
           movie.tagline       =   movie_feed['tagline']
-          # movie.overview      =   movie_feed['overview']
+          movie.overview      =   movie_feed['overview'].truncate(2000)
           movie.certification =   movie_feed['certification']
           movie.imdb_id       =   movie_feed['imdb_id']
           movie.tmdb_id       =   movie_feed['tmdb_id']
           movie.poster        =   movie_feed['poster']
           movie.watchers      =   movie_feed['watchers']
           movie.save!
-
         end
       when 404
         @result = '404 Not Found'

@@ -49,6 +49,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    font-awesome-rails (4.2.0.0)
+      railties (>= 3.2, < 5.0)
     hike (1.2.3)
     httparty (0.13.1)
       json (~> 1.8)
@@ -63,8 +65,6 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (4.2.1)
-      railties (>= 3.2.16)
     json (1.8.1)
     less (2.5.1)
       commonjs (~> 0.2.7)
@@ -169,11 +169,11 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   devise
   figaro
+  font-awesome-rails
   httparty
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
-  jquery-ui-rails
   momentjs-rails (~> 2.7.0)
   pg
   rails (= 4.1.1)

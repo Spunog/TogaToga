@@ -44,12 +44,13 @@ gem 'therubyracer', :require => 'v8'
 gem 'twitter-bootswatch-rails', '~> 3.2'
 gem 'twitter-bootswatch-rails-helpers'
 gem 'twitter-bootswatch-rails-fontawesome'
+gem 'font-awesome-rails'
 
 gem 'jquery-turbolinks' # fixes issues with on load events
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
-gem 'jquery-ui-rails'
+# gem 'jquery-ui-rails'
 
 gem 'rails_12factor', group: :production
 
