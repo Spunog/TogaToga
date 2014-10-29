@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'movies/refresh'
   get 'info/registrations'
 
+  get 'home/apitest'
+
   resources :movies
 
   match 'users/sign_up', to: 'info#registrations', via: [:get, :post]

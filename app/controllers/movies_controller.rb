@@ -29,8 +29,9 @@ class MoviesController < ApplicationController
 
   # GET /movies/refresh
   def refresh
-    response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
-
+    # response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
+    response = HTTParty.get('http://localhost:3000/home/apitest.json')
+    @errors = []
     @result = ''
     case response.code
       when 200
@@ -40,37 +41,53 @@ class MoviesController < ApplicationController
         movieslist.each do |movie_feed|
           movie = Movie.new
 
-          # Main Details
-          movie.title         =   movie_feed['title']
-          movie.year          =   movie_feed['year']
-          movie.released      =   movie_feed['released']
-          movie.url           =   movie_feed['url']
-          movie.trailer       =   movie_feed['trailer']
-          movie.runtime       =   movie_feed['runtime']
-          movie.tagline       =   movie_feed['tagline']
-          movie.overview      =   movie_feed['overview'].truncate(2000)
-          movie.certification =   movie_feed['certification']
-          movie.imdb_id       =   movie_feed['imdb_id']
-          movie.tmdb_id       =   movie_feed['tmdb_id']
-          movie.poster        =   movie_feed['poster']
-          movie.watchers      =   movie_feed['watchers']
+          begin
+            # Main Details
+            movie.title         =   movie_feed['title']
+            movie.year          =   movie_feed['year']
+            movie.released      =   movie_feed['released']
+            movie.url           =   movie_feed['url']
+            movie.trailer       =   movie_feed['trailer']
+            movie.runtime       =   movie_feed['runtime']
+            movie.tagline       =   movie_feed['tagline']
+            movie.certification =   movie_feed['certification']
+            movie.imdb_id       =   movie_feed['imdb_id']
+            movie.tmdb_id       =   movie_feed['tmdb_id']
+            movie.poster        =   movie_feed['poster']
+            movie.watchers      =   movie_feed['watchers']
+            movie.overview      =   movie_feed.has_key?("overview") ? movie_feed['overview'].truncate(2000, :length=>2000) : ''
 
-          # Images - Poster
-          if movie_feed['images'].has_key?("poster")
-            poster = movie.images.new
-            poster.type_id = 'poster'
-            poster.url = movie_feed['images']['poster']
-          end
+            # Overview
+            if movie_feed.has_key?("overview") && !movie_feed['overview'].nil?
+              movie.overview      =   movie_feed['overview'].truncate(2000, :length=>2000)
+            else
+              movie.overview = ''
+            end
 
-          # Images - Fanart
-          if movie_feed['images'].has_key?("fanart")
-            fanart = movie.images.new
-            fanart.type_id = 'fanart'
-            fanart.url = movie_feed['images']['fanart']
-          end
+            # Images - Poster
+            if movie_feed['images'].has_key?("poster")
+              poster = movie.images.new
+              poster.type_id = 'poster'
+              poster.url = movie_feed['images']['poster']
+            end
 
-          movie.save!
-        end
+            # Images - Fanart
+            if movie_feed['images'].has_key?("fanart")
+              fanart = movie.images.new
+              fanart.type_id = 'fanart'
+              fanart.url = movie_feed['images']['fanart']
+            end
+
+            # Save Details
+            movie.save!
+
+          rescue => e
+            @result = '200 connected to API successful but problem processing data.'
+            @errors.push("Errors: #{e}")
+          end # end try catch
+
+        end # end loop 
+
       when 404
         @result = '404 Not Found'
       when 500...600

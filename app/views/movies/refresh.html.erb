@@ -2,3 +2,11 @@
 
 <h4>API Fetch Result:</h4>
 <%= @result %>
+
+<% if @errors %>
+	<ul>
+		<% @errors.each do |error| %>
+			<li><%= error %></li>
+		<% end %>
+	</ul>
+<% end %>
