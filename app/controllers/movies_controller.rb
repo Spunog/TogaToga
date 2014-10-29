@@ -30,7 +30,7 @@ class MoviesController < ApplicationController
   # GET /movies/refresh
   def refresh
     # response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
-    response = HTTParty.get('http://localhost:3000/home/apitest.json')
+    response = HTTParty.get('http://www.togatoga.me/home/apitest.json')
     @errors = []
     @result = ''
     case response.code
