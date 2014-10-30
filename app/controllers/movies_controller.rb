@@ -29,8 +29,8 @@ class MoviesController < ApplicationController
 
   # GET /movies/refresh
   def refresh
-    # response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
-    response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
+    response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
+    # response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
     @errors = []
     @processedMovies = []
     @result = ''
