@@ -3,10 +3,24 @@
 <h4>API Fetch Result:</h4>
 <%= @result %>
 
-<% if @errors %>
+<!-- Errors -->
+<% if @errors.count > 0 %>
+	<h2>Errors</h2>
 	<ul>
 		<% @errors.each do |error| %>
 			<li><%= error %></li>
 		<% end %>
 	</ul>
+<% end %>
+
+<!-- Processed Files -->
+<h2>Processed Movies</h2>
+<% if @processedMovies.count > 0 %>
+	<ul>
+		<% @processedMovies.each do |movieTitle| %>
+			<li><%= movieTitle %></li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>No movies processed</p>
 <% end %>

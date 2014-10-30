@@ -30,14 +30,18 @@ class MoviesController < ApplicationController
   # GET /movies/refresh
   def refresh
     # response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
-    response = HTTParty.get('http://www.togatoga.me/home/apitest.json')
+    response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
     @errors = []
+    @processedMovies = []
     @result = ''
     case response.code
       when 200
         @result = '200 OK'
+
         Movie.destroy_all
         movieslist = response
+
+        # Loop over movies
         movieslist.each do |movie_feed|
           movie = Movie.new
 
@@ -55,7 +59,6 @@ class MoviesController < ApplicationController
             movie.tmdb_id       =   movie_feed['tmdb_id']
             movie.poster        =   movie_feed['poster']
             movie.watchers      =   movie_feed['watchers']
-            movie.overview      =   movie_feed.has_key?("overview") ? movie_feed['overview'].truncate(2000, :length=>2000) : ''
 
             # Overview
             if movie_feed.has_key?("overview") && !movie_feed['overview'].nil?
@@ -80,6 +83,9 @@ class MoviesController < ApplicationController
 
             # Save Details
             movie.save!
+
+            # Make note of movie processed
+            @processedMovies.push(movie.title)
 
           rescue => e
             @result = '200 connected to API successful but problem processing data.'
