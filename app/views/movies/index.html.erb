@@ -3,38 +3,26 @@
 </ol>
 
 <div class="row">
+
   <% @movies.each_with_index do |movie,index| %>
 
     <!-- Movie: Container -->
-    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6 movie js-movie-item js-movie-item-<%= movie.id %>"
-         data-movie-id="<%= movie.id %>">
-
-      <!-- Movie: Poster -->
-      <div class="row">
-        <div class="col-md-12 movie-poster js-movie-poster">
-          <div class="poster-container">
-            <%= image_tag(movie.poster.gsub(/.jpg/, '-138.jpg'), size: "138x197", class: 'img-responsive') %>
-          </div>
-        </div>
-      </div>
+    <div class="grid col-lg-2 col-md-3 col-sm-4 col-xs-6 movie js-movie-item js-movie-item-<%= movie.id %>" data-movie-id="<%= movie.id %>">
+      
+      <!-- Poster -->
+      <figure class="effect-apollo movie-poster js-movie-poster">
+        <%= image_tag(movie.poster.gsub(/.jpg/, '-138.jpg'), size: "138x197", class: 'img-responsive') %>
+        <figcaption>
+          <p>Click for more info</p>
+        </figcaption>     
+      </figure>
 
       <!-- Movie: Title -->
-      <div class="row">
-        <div class="col-md-12 movie-title">
-          <small><%= truncate(movie.title, length: 25) %></small>
-        </div>
+      <div class="col-md-12 movie-title">
+        <small><%= truncate(movie.title, length: 22) %></small>
       </div>
 
-      <!-- Admin -->
-      <div class="hide row">
-        <div class="col-md-12 movie-misc">
-          <small><%= movie.tagline %></small>
-          <%= link_to :Edit, movie %>
-          <%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %>
-        </div>
-      </div>
-
-    </div>    
+    </div>
 
     <% if (index + 1) % 6 == 0 %>
        <!-- Large Movie Info -->

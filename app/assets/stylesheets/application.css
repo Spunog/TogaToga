@@ -15,6 +15,7 @@
  *= require movies
  *= require info
  *= require font-awesome
+  *= require hover
  */
  body { padding-top: 60px; }
  .margin_left{margin-left: 1em;}
