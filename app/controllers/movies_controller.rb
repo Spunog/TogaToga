@@ -15,7 +15,7 @@ class MoviesController < ApplicationController
     fanart = @movie.images.find_by! type_id: 'fanart'
     poster = @movie.images.find_by! type_id: 'poster'
     @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
-    @posterURL = poster.url.gsub(/.jpg/,'-138.jpg') # use smaller poster for faster loading
+    @posterURL = poster.url.gsub(/.jpg/,'-300.jpg') # use smaller poster for faster loading
   end
 
   # GET /movies/new
