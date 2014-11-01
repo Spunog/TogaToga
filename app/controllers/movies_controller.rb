@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
     @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
     @posterURL = poster.url.gsub(/.jpg/,'-300.jpg') # use smaller poster for faster loading
     # @related = @trakt.getRelated(@movie.imdb_id)
-    @related = HTTParty.get('http://localhost:3000/home/apitest2.json')
+    @related = HTTParty.get('http://www.togatoga.me/home/apitest2.json')
   end
 
   # GET /movies/new

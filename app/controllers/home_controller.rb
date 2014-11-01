@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-	before_filter :authenticate_user!, :except => [:apitest]
+	before_filter :authenticate_user!, :except => [:apitest, :apitest2]
 	
 	def index
 		# render layout: "superhero"
