@@ -31,6 +31,8 @@ class MoviesController < ApplicationController
   # GET /movies/refresh
   def refresh
     response = @trakt.getTrending
+    # response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
+
     @errors = []
     @processedMovies = []
     @result = ''
@@ -38,12 +40,13 @@ class MoviesController < ApplicationController
       when 200
         @result = '200 OK'
 
-        Movie.destroy_all
+        # Movie.destroy_all
         movieslist = response
 
         # Loop over movies
         movieslist.each do |movie_feed|
-          movie = Movie.new
+
+          movie = Movie.where(:imdb_id => movie_feed['imdb_id']).first_or_create :title => movie_feed['title']
 
           begin
             # Main Details
