@@ -11,4 +11,9 @@ class HomeController < ApplicationController
 		request.env['CONTENT_TYPE'] = 'application/json'
 	end
 
+	def apitest2
+		render :layout => false
+		request.env['CONTENT_TYPE'] = 'application/json'
+	end
+
 end

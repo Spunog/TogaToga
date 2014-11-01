@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  before_filter :set_trakt, :only => [:refresh]
+  before_filter :set_trakt, :only => [:refresh, :show]
 
   # GET /movies
   # GET /movies.json
@@ -17,6 +17,8 @@ class MoviesController < ApplicationController
     poster = @movie.images.find_by! type_id: 'poster'
     @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
     @posterURL = poster.url.gsub(/.jpg/,'-300.jpg') # use smaller poster for faster loading
+    # @related = @trakt.getRelated(@movie.imdb_id)
+    @related = HTTParty.get('http://localhost:3000/home/apitest2.json')
   end
 
   # GET /movies/new

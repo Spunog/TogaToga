@@ -13,6 +13,14 @@ module Api
 			trending_uri = BASE_URI + '/movies/trending.json/' + @api_key
 			HTTParty.get(trending_uri)
 		end
+
+		def getRelated(id)
+			related_uri = BASE_URI + '/movie/related.json/' + @api_key + '/' + id
+			# HTTParty.get(related_uri)
+		end
+
+		# http://api.trakt.tv/movie/related.json/***REMOVED***/tt1285016
+
 		
 	end
 end

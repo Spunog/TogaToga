@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027172422) do
+ActiveRecord::Schema.define(version: 20141101230303) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20141027172422) do
     t.string   "url",        limit: 2083
     t.string   "type_id"
     t.integer  "movie_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "links", force: true do |t|
+    t.integer  "movie_id"
+    t.integer  "related_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

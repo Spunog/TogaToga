@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get 'info/registrations'
 
   get 'home/trakt'
+
+  # Tests
+  get 'home/apitest2'
   get 'home/apitest'
 
   resources :movies
