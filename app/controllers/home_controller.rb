@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
 	before_filter :authenticate_user!, :except => [:apitest]
-
+	
 	def index
 		# render layout: "superhero"
 		@movies = Movie.all

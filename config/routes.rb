@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get 'movies/refresh'
   get 'info/registrations'
 
+  get 'home/trakt'
   get 'home/apitest'
 
   resources :movies

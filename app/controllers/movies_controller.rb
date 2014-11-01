@@ -1,6 +1,7 @@
 class MoviesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
   before_action :set_movie, only: [:show, :edit, :update, :destroy]
+  before_filter :set_trakt, :only => [:refresh]
 
   # GET /movies
   # GET /movies.json
@@ -29,8 +30,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/refresh
   def refresh
-    response = HTTParty.get('http://api.trakt.tv/movies/trending.json/***REMOVED***')
-    # response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
+    response = @trakt.getTrending
     @errors = []
     @processedMovies = []
     @result = ''
@@ -152,4 +152,9 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:title, :year, :released, :url, :trailer, :runtime, :tagline, :certification, :imdb_id, :tmdb_id, :poster, :watchers)
     end
+
+    def set_trakt
+      @trakt = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])
+    end
+
 end
