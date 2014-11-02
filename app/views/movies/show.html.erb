@@ -70,9 +70,17 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane active" id="recommendations">
-        <h1>Recommendations</h1>
-        RELATED:
-        <%= debug @related %>
+        <h3>Recommendations</h3>
+        <p>If you like <em><%= @movie.title %></em> then you might like these:<p>
+        
+        <ul>
+          
+          <% @relatedMovies.each do |movie| %>
+            <li><%= link_to movie.title, movie_path(movie) %></li>
+          <% end %>
+
+        </ul>
+
       </div>
       <div class="tab-pane" id="Rotten-Tomatoes-Reviews">
         <h1>Rotten Tomatoes Reviews</h1>

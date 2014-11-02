@@ -13,12 +13,46 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
-    fanart = @movie.images.find_by! type_id: 'fanart'
-    poster = @movie.images.find_by! type_id: 'poster'
-    @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
-    @posterURL = poster.url.gsub(/.jpg/,'-300.jpg') # use smaller poster for faster loading
+
+    @fanArtURL = ''
+    @posterURL = ''
+
+    # fanart = @movie.images.find_by! type_id: 'fanart'
+    # poster = @movie.images.find_by! type_id: 'poster'
+
+    # if !fanart.nil
+    #   @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
+    # end
+
+    # if !poster.nil
+    #    @posterURL = poster.url.gsub(/.jpg/,'-300.jpg') # use smaller poster for faster loading
+    # end
+
     # @related = @trakt.getRelated(@movie.imdb_id)
-    @related = HTTParty.get('http://www.togatoga.me/home/apitest2.json')
+    
+    # Related Movies 
+    relatedMoviesFeed = HTTParty.get('http://www.togatoga.me/home/apitest2.json')
+
+    @relatedMovies = []
+    relatedMoviesFeed.each do |movie_feed|
+      movie = Movie.where(:imdb_id => movie_feed['imdb_id']).first_or_create :title => movie_feed['title']
+
+      movie.title         =   movie_feed['title']
+      movie.year          =   movie_feed['year']
+      movie.released      =   movie_feed['released']
+      movie.url           =   movie_feed['url']
+      movie.trailer       =   movie_feed['trailer']
+      movie.runtime       =   movie_feed['runtime']
+      movie.tagline       =   movie_feed['tagline']
+      movie.certification =   movie_feed['certification']
+      movie.imdb_id       =   movie_feed['imdb_id']
+      movie.tmdb_id       =   movie_feed['tmdb_id']
+      movie.poster        =   movie_feed['poster']
+      movie.save!
+
+      @relatedMovies.push(movie)
+    end
+
   end
 
   # GET /movies/new
