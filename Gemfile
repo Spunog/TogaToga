@@ -60,6 +60,11 @@ gem 'momentjs-rails', '~> 2.7.0'
 
 gem 'unicorn'
 
+gem 'unicorn-rails' # used to run unicorn locally for testing by default
+
 gem 'httparty'
+
+# gem 'virtus' # http and datawrapping
+
 
 

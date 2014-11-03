@@ -31,26 +31,17 @@ class MoviesController < ApplicationController
     # @related = @trakt.getRelated(@movie.imdb_id)
     
     # Related Movies 
-    relatedMoviesFeed = HTTParty.get('http://www.togatoga.me/home/apitest2.json')
+    relatedMoviesFeed = HTTParty.get('http://localhost:3000/home/apitest2.json')
 
+    @errors = []
     @relatedMovies = []
-    relatedMoviesFeed.each do |movie_feed|
-      movie = Movie.where(:imdb_id => movie_feed['imdb_id']).first_or_create :title => movie_feed['title']
-
-      movie.title         =   movie_feed['title']
-      movie.year          =   movie_feed['year']
-      movie.released      =   movie_feed['released']
-      movie.url           =   movie_feed['url']
-      movie.trailer       =   movie_feed['trailer']
-      movie.runtime       =   movie_feed['runtime']
-      movie.tagline       =   movie_feed['tagline']
-      movie.certification =   movie_feed['certification']
-      movie.imdb_id       =   movie_feed['imdb_id']
-      movie.tmdb_id       =   movie_feed['tmdb_id']
-      movie.poster        =   movie_feed['poster']
-      movie.save!
-
-      @relatedMovies.push(movie)
+    @result = ''
+    if response.code == '200 OK'
+        response.each do |movie|
+          movieTitle, errorText = update_or_add_movie(movie,true)
+          @relatedMovies.push(movieTitle)
+          @errors.push(errorText) if not errorText.blank?
+        end
     end
 
   end
@@ -64,10 +55,10 @@ class MoviesController < ApplicationController
   def edit
   end
 
-  # GET /movies/refresh
+  # GET /movies/refresh - trending videos
   def refresh
-    response = @trakt.getTrending
-    # response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
+    # response = @trakt.getTrending
+    response = HTTParty.get('http://localhost:3000/home/apitest.json') # static json file used for testing
 
     @errors = []
     @processedMovies = []
@@ -76,62 +67,12 @@ class MoviesController < ApplicationController
       when 200
         @result = '200 OK'
 
-        # Movie.destroy_all
-        movieslist = response
-
         # Loop over movies
-        movieslist.each do |movie_feed|
-
-          movie = Movie.where(:imdb_id => movie_feed['imdb_id']).first_or_create :title => movie_feed['title']
-
-          begin
-            # Main Details
-            movie.title         =   movie_feed['title']
-            movie.year          =   movie_feed['year']
-            movie.released      =   movie_feed['released']
-            movie.url           =   movie_feed['url']
-            movie.trailer       =   movie_feed['trailer']
-            movie.runtime       =   movie_feed['runtime']
-            movie.tagline       =   movie_feed['tagline']
-            movie.certification =   movie_feed['certification']
-            movie.imdb_id       =   movie_feed['imdb_id']
-            movie.tmdb_id       =   movie_feed['tmdb_id']
-            movie.poster        =   movie_feed['poster']
-            movie.watchers      =   movie_feed['watchers']
-
-            # Overview
-            if movie_feed.has_key?("overview") && !movie_feed['overview'].nil?
-              movie.overview      =   movie_feed['overview'].truncate(2000, :length=>2000)
-            else
-              movie.overview = ''
-            end
-
-            # Images - Poster
-            if movie_feed['images'].has_key?("poster")
-              poster = movie.images.new
-              poster.type_id = 'poster'
-              poster.url = movie_feed['images']['poster']
-            end
-
-            # Images - Fanart
-            if movie_feed['images'].has_key?("fanart")
-              fanart = movie.images.new
-              fanart.type_id = 'fanart'
-              fanart.url = movie_feed['images']['fanart']
-            end
-
-            # Save Details
-            movie.save!
-
-            # Make note of movie processed
-            @processedMovies.push(movie.title)
-
-          rescue => e
-            @result = '200 connected to API successful but problem processing data.'
-            @errors.push("Errors: #{e}")
-          end # end try catch
-
-        end # end loop 
+        response.each do |movie|
+          movieTitle, errorText = update_or_add_movie(movie,true)
+          @processedMovies.push(movieTitle)
+          @errors.push(errorText) if not errorText.blank?
+        end
 
       when 404
         @result = '404 Not Found'
@@ -194,6 +135,62 @@ class MoviesController < ApplicationController
 
     def set_trakt
       @trakt = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])
+    end
+
+    def update_or_add_movie(movie_feed, trending)
+      movie = Movie.where(:imdb_id => movie_feed['imdb_id']).first_or_create :title => movie_feed['title']
+
+      begin
+        # Main Details
+        movie.title         =   movie_feed['title']
+        movie.year          =   movie_feed['year']
+        movie.released      =   movie_feed['released']
+        movie.url           =   movie_feed['url']
+        movie.trailer       =   movie_feed['trailer']
+        movie.runtime       =   movie_feed['runtime']
+        movie.tagline       =   movie_feed['tagline']
+        movie.certification =   movie_feed['certification']
+        movie.imdb_id       =   movie_feed['imdb_id']
+        movie.tmdb_id       =   movie_feed['tmdb_id']
+        movie.poster        =   movie_feed['poster']
+        movie.watchers      =   movie_feed['watchers']
+
+        # Overview
+        if movie_feed.has_key?("overview") && !movie_feed['overview'].nil?
+          movie.overview      =   movie_feed['overview'].truncate(2000, :length=>2000)
+        else
+          movie.overview = ''
+        end
+
+        # Images - Poster
+        if movie_feed['images'].has_key?("poster")
+          poster = movie.images.new
+          poster.type_id = 'poster'
+          poster.url = movie_feed['images']['poster']
+        end
+
+        # Images - Fanart
+        if movie_feed['images'].has_key?("fanart")
+          fanart = movie.images.new
+          fanart.type_id = 'fanart'
+          fanart.url = movie_feed['images']['fanart']
+        end
+
+        if trending
+          movie.build_trending.rank
+        end if
+
+        # Save Details
+        movie.save!
+        errorText = ''
+
+      rescue => e
+        # @errors.push("Errors: #{e}")
+        errorText = "Errors: #{e}"
+      end # end try catch
+
+      return movie_feed['title'], errorText
+
     end
 
 end
