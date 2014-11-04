@@ -17,8 +17,8 @@ class MoviesController < ApplicationController
   def show
 
     # Related Movies 
-    # @related = @trakt.getRelated(@movie.imdb_id)
-    response = HTTParty.get('http://www.togatoga.me:3000/home/apitest2.json')
+    response = @trakt.getRelated(@movie.imdb_id)
+    # response = HTTParty.get('http://www.togatoga.me:3000/home/apitest2.json')
 
     @errors = []
     @relatedMovies = []

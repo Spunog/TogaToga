@@ -16,7 +16,7 @@ module Api
 
 		def getRelated(id)
 			related_uri = BASE_URI + '/movie/related.json/' + @api_key + '/' + id
-			# HTTParty.get(related_uri)
+			HTTParty.get(related_uri)
 		end
 
 		# http://api.trakt.tv/movie/related.json/***REMOVED***/tt1285016
