@@ -35,4 +35,15 @@ class Movie < ActiveRecord::Base
 
 	end
 
+	def posterSmallURL
+
+		poster = self.images.find_by! type_id: 'poster'
+	    if poster.blank?
+	    	poster = "missing_poster.png"
+	    else
+			poster = poster.url.gsub(/.jpg/,'-138.jpg') # use smaller fan art size for faster loading
+	    end
+
+	end
+
 end
