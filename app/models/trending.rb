@@ -1,5 +1,5 @@
 class Trending < ActiveRecord::Base
-	belongs_to :movie
+	belongs_to :movie, dependent: :destroy
 	validates_presence_of :movie_id
 	validates_uniqueness_of :movie_id
 	validates_presence_of :rank

@@ -7,39 +7,26 @@ class MoviesController < ApplicationController
   # GET /movies.json
   def index
     per_page = (params.has_key?(:per_page) && params[:per_page].to_i != 0) ? params[:per_page].to_i : 24
-    @movies = Movie.all.page(params[:page]).per_page(per_page)
+    # @movies = Movie.all.page(params[:page]).per_page(per_page)
+    @movies = Movie.joins(:trending).all.page(params[:page]).per_page(per_page)
+
   end
 
   # GET /movies/1
   # GET /movies/1.json
   def show
 
-    @fanArtURL = ''
-    @posterURL = ''
-
-    # fanart = @movie.images.find_by! type_id: 'fanart'
-    # poster = @movie.images.find_by! type_id: 'poster'
-
-    # if !fanart.nil
-    #   @fanArtURL = fanart.url.gsub(/.jpg/,'-940.jpg') # use smaller fan art size for faster loading
-    # end
-
-    # if !poster.nil
-    #    @posterURL = poster.url.gsub(/.jpg/,'-300.jpg') # use smaller poster for faster loading
-    # end
-
-    # @related = @trakt.getRelated(@movie.imdb_id)
-    
     # Related Movies 
-    relatedMoviesFeed = HTTParty.get('http://localhost:3000/home/apitest2.json')
+    # @related = @trakt.getRelated(@movie.imdb_id)
+    response = HTTParty.get('http://localhost:3000/home/apitest2.json')
 
     @errors = []
     @relatedMovies = []
     @result = ''
-    if response.code == '200 OK'
-        response.each do |movie|
-          movieTitle, errorText = update_or_add_movie(movie,true)
-          @relatedMovies.push(movieTitle)
+    if response.code == 200
+        response.each do |movie_item|
+          movie, errorText = update_or_add_movie(:movie => movie_item, :addRank => false)
+          @relatedMovies.push(movie)
           @errors.push(errorText) if not errorText.blank?
         end
     end
@@ -67,10 +54,13 @@ class MoviesController < ApplicationController
       when 200
         @result = '200 OK'
 
+        # Clear Existing Trending Movies
+        Trending.destroy_all()
+
         # Loop over movies
-        response.each do |movie|
-          movieTitle, errorText = update_or_add_movie(movie,true)
-          @processedMovies.push(movieTitle)
+        response.each do |movie_item|
+          movie, errorText = update_or_add_movie(:movie => movie_item, :addRank => true)
+          @processedMovies.push(movie.title)
           @errors.push(errorText) if not errorText.blank?
         end
 
@@ -137,7 +127,9 @@ class MoviesController < ApplicationController
       @trakt = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])
     end
 
-    def update_or_add_movie(movie_feed, trending)
+    def update_or_add_movie(args={})
+      movie_feed = args[:movie]
+      addRank = args[:addRank]
       movie = Movie.where(:imdb_id => movie_feed['imdb_id']).first_or_create :title => movie_feed['title']
 
       begin
@@ -176,9 +168,8 @@ class MoviesController < ApplicationController
           fanart.url = movie_feed['images']['fanart']
         end
 
-        if trending
-          movie.build_trending.rank
-        end if
+        # Trending
+        movie.build_trending if addRank
 
         # Save Details
         movie.save!
@@ -189,7 +180,7 @@ class MoviesController < ApplicationController
         errorText = "Errors: #{e}"
       end # end try catch
 
-      return movie_feed['title'], errorText
+      return movie, errorText
 
     end
 

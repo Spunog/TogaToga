@@ -5,7 +5,7 @@
 
 <style>
   .fanart-header:after {
-    background-image: url(<%= @fanArtURL %>);
+    background-image: url(<%= @movie.fanartURL %>);
   }
 </style>
 
@@ -19,7 +19,7 @@
 
           <!-- Left Side -->
           <div class="col-md-3">
-            <%= image_tag(@posterURL, size: "138x197", class: 'img-responsive poster', alt: @movie.title + ' Poster') %>
+            <%= image_tag(@movie.posterURL, size: "138x197", class: 'img-responsive poster', alt: @movie.title + ' Poster') %>
           </div>
 
           <!-- Right Side -->
@@ -61,36 +61,36 @@
   <div class="col-md-12">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li class="active"><a href="#Rotten-Tomatoes-Reviews" role="tab" data-toggle="tab">Rotten Tomatoes Reviews</a></li>
+      <li class="active"><a href="#recommendations" role="tab" data-toggle="tab">Recommendations</a></li>
+      <li><a href="#Rotten-Tomatoes-Reviews" role="tab" data-toggle="tab">Rotten Tomatoes Reviews</a></li>
       <li><a href="#cinema-times" role="tab" data-toggle="tab">Trakt Reviews</a></li>
-      <li><a href="#recommendations" role="tab" data-toggle="tab">Recommendations</a></li>
       <li><a href="#cinema-times" role="tab" data-toggle="tab">Cinema Times</a></li>
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane active" id="recommendations">
-        <h3>Recommendations</h3>
+        <h1>Recommendations</h1>
         <p>If you like <em><%= @movie.title %></em> then you might like these:<p>
-        
         <ul>
-          
           <% @relatedMovies.each do |movie| %>
             <li><%= link_to movie.title, movie_path(movie) %></li>
           <% end %>
-
         </ul>
-
       </div>
+      
       <div class="tab-pane" id="Rotten-Tomatoes-Reviews">
         <h1>Rotten Tomatoes Reviews</h1>
       </div>
+      
       <div class="tab-pane" id="trakt-reviews">
         <h1>Trakt Reviews</h1>
       </div>
+      
       <div class="tab-pane" id="cinema-times">
         <h1>Cinema Time Tables</h1>
       </div>
+    
     </div>
   </div>
 </div>
