@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
 
     # Related Movies 
     # @related = @trakt.getRelated(@movie.imdb_id)
-    response = HTTParty.get('http://localhost:3000/home/apitest2.json')
+    response = HTTParty.get('http://www.togatoga.me:3000/home/apitest2.json')
 
     @errors = []
     @relatedMovies = []
@@ -44,8 +44,8 @@ class MoviesController < ApplicationController
 
   # GET /movies/refresh - trending videos
   def refresh
-    # response = @trakt.getTrending
-    response = HTTParty.get('http://localhost:3000/home/apitest.json') # static json file used for testing
+    response = @trakt.getTrending
+    # response = HTTParty.get('http://localhost:3000/home/apitest.json') # static json file used for testing
 
     @errors = []
     @processedMovies = []
