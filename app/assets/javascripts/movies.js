@@ -85,5 +85,38 @@
 	    //$infoPanel.hide();
 	});
 
+	$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+		var $tab = $(e.target);
+		var movieID = $tab.parents('.js-movie-tabs').data('movie-id');
+
+		switch ($tab.attr('href')) {
+		  case '#recommendations':
+			infoURL = '/movies/related/' + movieID + ".json";
+			$.ajax({
+		        type: "GET",
+		        url:infoURL,
+		        dataType:'json',
+		        success: function( data, textStatus , jqXHR)
+		                  {
+							var templateMovie = $('#template-related-movie-info').html();
+							Mustache.parse(templateMovie);   // optional, speeds up future uses
+							var rendered = Mustache.render(templateMovie, data);
+							
+							$('#recommendations').empty().html(rendered);
+
+		                  },
+		        error: connectionFailed
+			});
+		    break;
+		  default:
+		    //Statements executed when none of the values match the value of the expression
+		    break;
+		}
+
+	});
+
+	$('.js-movie-tabs a:first').tab('show');
+
 }
 )();
+

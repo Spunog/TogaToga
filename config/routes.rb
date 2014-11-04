@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get '/movies/related/:id', to: 'movies#related'
+
   get 'movies/refresh'
   get 'info/registrations'
 

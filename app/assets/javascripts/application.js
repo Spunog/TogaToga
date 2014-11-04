@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require mustache
 //= require site
-//= require movies
 //= require turbolinks
+//= require superhero/loader
+//= require superhero/bootswatch
+//= require movies

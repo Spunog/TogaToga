@@ -1,0 +1,25 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Trending Movies', movies_path %></li>
+  <li><%= link_to @movie.title, @movie %></li>
+  <li class="active">Related Movies</li>
+</ol>
+
+<p>Recommendations based on <em><%= @movie.title %></em>:<p>
+
+<div class="list-group">
+
+  <% @relatedMovies.each do |movie| %>
+    <%= link_to movie, class: 'list-group-item row' do %>
+      <div class='col-sm-2'>
+        <%= image_tag movie.posterSmallURL, width: '64', class: 'img-responsive' %>
+      </div>
+
+      <div class='col-sm-10'>
+        <h4 class="list-group-item-heading"><%= movie.title %></h4>
+        <p class="list-group-item-text"><%= movie.overview %></p>
+      </div>
+      
+    <% end %>
+  <% end %>
+
+</div>

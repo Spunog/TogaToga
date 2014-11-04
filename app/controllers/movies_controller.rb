@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
-  before_action :set_movie, only: [:show, :edit, :update, :destroy]
-  before_filter :set_trakt, :only => [:refresh, :show]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related]
+  before_filter :set_trakt, :only => [:refresh, :show, :related]
 
   # GET /movies
   # GET /movies.json
@@ -16,9 +16,13 @@ class MoviesController < ApplicationController
   # GET /movies/1.json
   def show
 
+  end
+
+  def related
+
     # Related Movies 
-    response = @trakt.getRelated(@movie.imdb_id)
-    # response = HTTParty.get('http://www.togatoga.me:3000/home/apitest2.json')
+    # response = @trakt.getRelated(@movie.imdb_id)
+    response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
 
     @errors = []
     @relatedMovies = []
@@ -44,8 +48,8 @@ class MoviesController < ApplicationController
 
   # GET /movies/refresh - trending videos
   def refresh
-    response = @trakt.getTrending
-    # response = HTTParty.get('http://localhost:3000/home/apitest.json') # static json file used for testing
+    # response = @trakt.getTrending
+    response = HTTParty.get('http://localhost:3000/home/apitest.json') # static json file used for testing
 
     @errors = []
     @processedMovies = []
