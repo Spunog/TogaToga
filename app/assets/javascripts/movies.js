@@ -117,7 +117,10 @@
 							$('#recommendations').empty().html(rendered);
 
 		                  },
-		        error: connectionFailed
+		        error: function(){
+		        			var errorHTML = '<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">Unable to retrieve recommendations at this time. Please try again later.</div>'
+		        			$('#recommendations').empty().html(errorHTML);
+		        		}
 			});
 		    break;
 		  default:
