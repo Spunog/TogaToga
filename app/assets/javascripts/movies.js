@@ -24,12 +24,31 @@
 		return rendered;
 	};
 
+	function hideOtherMoviePosterContainers(movieID){
+	    var $clickedMovie = $(".js-movie-item-" + movieID);
+	    $clickedMovie.addClass('active');
+
+	    //Clear Previous Containers
+	    $clickedMovie.prevAll(".js-movie-info-container").empty();
+
+	    //Clear containers after the first matching container
+	    $clickedMovie.nextAll('.js-movie-info-container-lg').first().nextAll('.js-movie-info-container-lg').empty();
+	    $clickedMovie.nextAll('.js-movie-info-container-md').first().nextAll('.js-movie-info-container-md').empty();
+	    $clickedMovie.nextAll('.js-movie-info-container-sm').first().nextAll('.js-movie-info-container-sm').empty();
+	    $clickedMovie.nextAll('.js-movie-info-container-xs').first().nextAll('.js-movie-info-container-xs').empty();
+	}
+
 	//Events
 	$(".js-movie-poster").on('click',function() {
 		var movieID = $(this).parents('.js-movie-item').attr('data-movie-id');
 
 		$(".movie.active").removeClass('active');
 
+		//Show Loader
+		$(".js-movie-info-container").empty().html(getLoaderHTML());
+		hideOtherMoviePosterContainers(movieID);			                        
+
+		//Show Movie
 		if(lastMovieID == movieID){
 			lastMovieID = 0;
 			$(".js-movie-info-container").empty(); //clear previous items
@@ -56,17 +75,7 @@
 			                        
 			                        //Only use one set of info containers to display info
 			                        var movieID = data.id;
-			                        var $clickedMovie = $(".js-movie-item-" + movieID);
-			                        $clickedMovie.addClass('active');
-
-			                        //Clear Previous Containers
-			                        $clickedMovie.prevAll(".js-movie-info-container").empty();
-
-			                        //Clear containers after the first matching container
-			                        $clickedMovie.nextAll('.js-movie-info-container-lg').first().nextAll('.js-movie-info-container-lg').empty();
-			                        $clickedMovie.nextAll('.js-movie-info-container-md').first().nextAll('.js-movie-info-container-md').empty();
-			                        $clickedMovie.nextAll('.js-movie-info-container-sm').first().nextAll('.js-movie-info-container-sm').empty();
-			                        $clickedMovie.nextAll('.js-movie-info-container-xs').first().nextAll('.js-movie-info-container-xs').empty();
+			                        hideOtherMoviePosterContainers(movieID);
 
 			                        //Scroll to item
 									$('html, body').animate({
@@ -88,6 +97,8 @@
 	$(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
 		var $tab = $(e.target);
 		var movieID = $tab.parents('.js-movie-tabs').data('movie-id');
+
+		$('#recommendations').empty().html(getLoaderHTML());
 
 		switch ($tab.attr('href')) {
 		  case '#recommendations':

@@ -20,19 +20,25 @@ class MoviesController < ApplicationController
 
   def related
 
-    # Related Movies 
-    response = @trakt.getRelated(@movie.imdb_id)
-    # response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
-
     @errors = []
     @relatedMovies = []
-    @result = ''
-    if response.code == 200
-        response.each do |movie_item|
-          movie, errorText = update_or_add_movie(:movie => movie_item, :addRank => false)
-          @relatedMovies.push(movie)
-          @errors.push(errorText) if not errorText.blank?
-        end
+
+    cachedRelatedMovies = @movie.relateds
+
+    if cachedRelatedMovies.count > 0
+      @relatedMovies = cachedRelatedMovies
+    else
+      # Related Movies 
+      response = @trakt.getRelated(@movie.imdb_id)
+      # response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
+
+      if response.code == 200
+          response.each do |movie_item|
+            movie, errorText = update_or_add_movie(:movie => movie_item, :addRank => false)
+            @relatedMovies.push(movie)
+            @errors.push(errorText) if not errorText.blank?
+          end
+      end
     end
 
   end

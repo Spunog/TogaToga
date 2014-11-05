@@ -1,0 +1,12 @@
+//Common Functions
+function connectionFailed(){
+	alert('Unable to retrive information at this time. Please try again later.');
+}
+
+function getLoaderHTML(text){
+	if(!text){
+		text = 'Loading. Please wait...'
+	}
+	var loader = '<div class="text-center"><%= image_tag('loader_rect.gif', size: "128x15", class: 'img-responsive poster', alt: 'loading...') %><p>' + text + '</p></div>'
+	return loader
+}
