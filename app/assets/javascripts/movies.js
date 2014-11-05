@@ -78,6 +78,7 @@
 			                        hideOtherMoviePosterContainers(movieID);
 
 			                        //Scroll to item
+			                        var $clickedMovie = $(".js-movie-item-" + movieID);
 									$('html, body').animate({
 									    scrollTop: $clickedMovie.offset().top - 40
 									}, 1000);
