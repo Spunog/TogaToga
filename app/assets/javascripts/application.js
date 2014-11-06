@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require mustache
+//= require moment
+//= require handlebars
 //= require site
 //= require turbolinks
 //= require superhero/loader

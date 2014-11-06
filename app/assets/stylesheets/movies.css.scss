@@ -56,6 +56,70 @@
     left: 166px;
 
     .label-info a{
-    	color:white;
+    	color: 				white;
     }
 }
+
+.nav.ticket-menu  li {
+    display: inline-block;
+}
+
+.nav-tabs.ticket-menu li{
+	float: none;
+} 
+
+.ticket-menu{
+	text-align: 			center;
+}
+
+.ticket-menu li{
+	margin: 0 1em;
+}
+
+.ticket-menu-item
+{
+	background:             url('MovieMenu.png') top; /*Menu Sprite - bunch of images stored as one image*/
+	display:                inline-block;
+	float:                  left;
+	height:                 52px;
+	width:                  123px;
+}
+
+.ticket-menu-item:focus  {  outline:none;  }
+
+.ticket-menu-item.similar{background-position:0px 0px;} /*Adjusting which part of menu sprite|image to show 124x53*/
+.ticket-menu-item.similar:hover,.ticket-menu-item.similar:focus{background-position:0px 105px;}
+.ticket-menu-item.similar.selected{background-position:0px 52px;}
+
+.ticket-menu-item.rotten-tomatoes{background-position:-124px 0;}
+ .ticket-menu-item.rotten-tomatoes:hover
+,.ticket-menu-item.rotten-tomatoes:focus{background-position:-124px 105px;}
+.ticket-menu-item.rotten-tomatoes.selected{background-position:-124px 52px;}
+
+.ticket-menu-item.reddit{background-position:-248px 0;}
+ .ticket-menu-item.reddit:hover
+,.ticket-menu-item.reddit:focus{background-position:-248px 105px;}
+.ticket-menu-item.reddit.selected{background-position:-248px 52px;}
+
+.ticket-menu-item.cinema{background-position:-372px 0;}
+ .ticket-menu-item.cinema:hover
+,.ticket-menu-item.cinema:focus{background-position:-372px 105px;}
+.ticket-menu-item.cinema.selected{background-position:-372px 52px;}
+
+.ticket-menu-item.trakt{background-position:-496px 0;}
+ .ticket-menu-item.trakt:hover
+,.ticket-menu-item.trakt:focus{background-position:-496px 105px;}
+.ticket-menu-item.trakt.selected{background-position:-496px 52px;}
+
+
+
+
+
+
+
+
+
+
+
+
+

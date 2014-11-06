@@ -15,7 +15,13 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+  end
 
+  def rt
+    rt_movie_responce = HTTParty.get('http://localhost:3000/home/apiRTMovieTest.json')
+    rt_movie_review_responce = HTTParty.get('http://localhost:3000/home/apiRTTest.json')
+    @movie = rt_movie_responce
+    @reviews = rt_movie_review_responce
   end
 
   def related

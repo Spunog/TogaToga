@@ -4,24 +4,25 @@
 
 	//Main Functions
 	function movieGetRenderedTemplate(data){
-		var templateMovie = $('#template-movie-info').html();
-		Mustache.parse(templateMovie);   // optional, speeds up future uses
-		var rendered = Mustache.render(templateMovie, { 
-			 id: 					data.id
-			,title: 				data.title
-			,overview: 				data.overview
-			,year: 					data.year
-			,released: 				data.released
-			,trailer: 				data.trailer
-			,runtime: 				data.runtime
-			,tagline: 				data.tagline
-			,certification: 		data.certification
-			,imdb_id: 				data.imdb_id
-			,tmdb_id: 				data.tmdb_id
-			,poster: 				data.poster
-			,released_formatted: 	data.released_formatted
-		});
-		return rendered;
+
+		var source   = $('#template-movie-info').html();
+		var template = Handlebars.compile(source);
+		var html     = template({ 
+									 id: 					data.id
+									,title: 				data.title
+									,overview: 				data.overview
+									,year: 					data.year
+									,released: 				data.released
+									,trailer: 				data.trailer
+									,runtime: 				data.runtime
+									,tagline: 				data.tagline
+									,certification: 		data.certification
+									,imdb_id: 				data.imdb_id
+									,tmdb_id: 				data.tmdb_id
+									,poster: 				data.poster
+									,released_formatted: 	data.released_formatted
+								});
+		return html;
 	};
 
 	function hideOtherMoviePosterContainers(movieID){
@@ -110,12 +111,10 @@
 		        dataType:'json',
 		        success: function( data, textStatus , jqXHR)
 		                  {
-							var templateMovie = $('#template-related-movie-info').html();
-							Mustache.parse(templateMovie);   // optional, speeds up future uses
-							var rendered = Mustache.render(templateMovie, data);
-							
-							$('#recommendations').empty().html(rendered);
-
+							var source   = $('#template-related-movie-info').html();
+							var template = Handlebars.compile(source);
+							var html     = template(data);
+							$('#recommendations').empty().html(html);
 		                  },
 		        error: function(){
 		        			var errorHTML = '<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">Unable to retrieve recommendations at this time. Please try again later.</div>'
@@ -123,6 +122,28 @@
 		        		}
 			});
 		    break;
+			  case '#Rotten-Tomatoes-Reviews':
+				infoURL = '/movies/rt.json';
+				$.ajax({
+			        type: "GET",
+			        url:infoURL,
+			        dataType:'json',
+			        success: function( data, textStatus , jqXHR)
+			                  {
+								Handlebars.registerHelper("prettifyDate", function(dateitem) {
+								    return moment(dateitem).format('MMMM Do YYYY');
+								});
+								var source   = $('#template-rotten-tomato-review').html();
+								var template = Handlebars.compile(source);
+								var html     = template(data);
+								$('#Rotten-Tomatoes-Reviews').empty().html(html);
+			                  },
+			        error: function(){
+			        			var errorHTML = '<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">Unable to retrieve Rotten Tomatoes Reviews at this time. Please try again later.</div>'
+			        			$('#Rotten-Tomatoes-Reviews').empty().html(errorHTML);
+			        		}
+				});
+			    break;
 		  default:
 		    //Statements executed when none of the values match the value of the expression
 		    break;
@@ -130,7 +151,7 @@
 
 	});
 
-	$('.js-movie-tabs a:first').tab('show');
+	//$('.js-movie-tabs a:first').tab('show');
 
 }
 )();
