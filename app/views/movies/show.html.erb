@@ -57,34 +57,32 @@
 
 </div>
 
-<div class='text-center well'>
+<div class="panel panel-success">
 
-  <div class='row'>
-   <ul class="nav nav-tabs js-movie-tabs ticket-menu" role="tablist" data-movie-id="<%= @movie.id %>">
-        <li>
-          <a class='js-default-tab ticket-menu-item similar text-hide'
-               href="#recommendations"
-               role="tab"
-               data-toggle="tab">Similar</a></li>
-        <li>
-          <a href="#Rotten-Tomatoes-Reviews"
-               class='ticket-menu-item rotten-tomatoes text-hide'
-               role="tab"
-               data-toggle="tab">Rotten Tomatoes<sup>&copy;</sup> Reviews</a></li>
-        <li>
-          <a href="#trakt-reviews"
-             class='ticket-menu-item reddit text-hide'
+  <ul class="js-movie-tabs ticket-menu" role="tablist" data-movie-id="<%= @movie.id %>">
+      <li>
+        <a class='js-default-tab ticket-menu-item similar text-hide'
+             href="#recommendations"
              role="tab"
-             data-toggle="tab">Reddit</a>
-        </li>
-        <li>
-          <a href="#cinema-times"
-             class='ticket-menu-item cinema text-hide'
+             data-toggle="tab">Similar</a></li>
+      <li>
+        <a href="#Rotten-Tomatoes-Reviews"
+             class='ticket-menu-item rotten-tomatoes text-hide'
              role="tab"
-             data-toggle="tab">Cinema Times</a>
-        </li>
-      </ul>
-  </div>
+             data-toggle="tab">Rotten Tomatoes<sup>&copy;</sup> Reviews</a></li>
+      <li>
+        <a href="#trakt-reviews"
+           class='ticket-menu-item reddit text-hide'
+           role="tab"
+           data-toggle="tab">Reddit</a>
+      </li>
+      <li>
+        <a href="#cinema-times"
+           class='ticket-menu-item cinema text-hide'
+           role="tab"
+           data-toggle="tab">Cinema Times</a>
+      </li>
+    </ul>
 
 </div>
 
@@ -93,20 +91,16 @@
 
     <!-- Tab panes -->
     <div class="tab-content">
-      <div class="tab-pane" id="recommendations">
-
-      </div>
+      <div class="tab-pane" id="recommendations"></div>
       
-      <div class="tab-pane active" id="Rotten-Tomatoes-Reviews">
-        <p>WIP</p>
-      </div>
+      <div class="tab-pane active" id="Rotten-Tomatoes-Reviews"></div>
       
       <div class="tab-pane" id="trakt-reviews">
-        <p>WIP</p>
+        <h3>Reddit - wip</h3>
       </div>
       
       <div class="tab-pane" id="cinema-times">
-        <p>WIP</p>
+        <h3>Cinema - wip</h3>
       </div>
     
     </div>
@@ -116,21 +110,35 @@
 <!-- Related Movies -->
 <script id="template-related-movie-info" type="x-tmpl-handlebars">
 
-  <div class="list-group">
+  <div class="row">
+
+    <div class='col-xs-12'>
+      <h3>
+        Movies similar to <em><%= @movie.title %></em>
+      </h3>
+    </div>
 
     {{#movies}}
-      <a href='{{movieurl}}' class='list-group-item row'>
+      <div class='col-md-6 col-xs-6'>
+        <div class='related-movie'>
+          <a href='{{movieurl}}' class='list-group-item row'>
 
-        <div class='col-sm-2'>
-          <img src='{{posterSmallURL}}' width='64' class='img-responsive' />
-        </div>
+            <div class='col-sm-2 col-xs-12 text-center'>
+              <img src='{{posterSmallURL}}' width='64' class='img-responsive' />
+              <small class='visible-xs'>{{truncate title 70}}</small>
+            </div>
 
-        <div class='col-sm-10'>
-          <h4 class="list-group-item-heading">{{title}}</h4>
-          <p class="list-group-item-text">{{overview}}</p>
+            <div class='col-sm-10 hidden-xs'>
+              <h4 class="list-group-item-heading">{{truncate title 40}}</h4>
+              <p class="list-group-item-text visible-xs">{{truncate overview 50}}</p>
+              <p class="list-group-item-text visible-sm">{{truncate overview 70}}</p>
+              <p class="list-group-item-text visible-md">{{truncate overview 120}}</p>
+              <p class="list-group-item-text visible-lg">{{truncate overview 160}}</p>
+            </div>
+            
+          </a>
         </div>
-        
-      </a>
+      </div>
     {{/movies}}
 
   </div>
@@ -140,7 +148,7 @@
 <!-- Related Movies -->
 <script id="template-rotten-tomato-review" type="x-tmpl-handlebars">
 
-  <h3>Critic Reviews</h3>
+  <h3>Critic Reviews - wip</h3>
   <hr />
   <p>Movie Reviews From Rotten Tomatoes<sup>&copy;</sup></p>
 
