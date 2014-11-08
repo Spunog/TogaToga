@@ -142,7 +142,7 @@
 
 	});
 
-	//$('.js-movie-tabs a:first').tab('show');
+	$('.js-movie-tabs a:first').tab('show');
 
 }
 )();
