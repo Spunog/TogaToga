@@ -3,7 +3,6 @@
 	var lastMovieID = 0;
 
 	//Main Functions
-
 	function hideOtherMoviePosterContainers(movieID){
 	    var $clickedMovie = $(".js-movie-item-" + movieID);
 	    $clickedMovie.addClass('active');
@@ -97,7 +96,7 @@
 		    break;
 			  case '#Rotten-Tomatoes-Reviews':
 			  	$(itemSelector).empty().html(getLoaderHTML());
-				infoURL = '/movies/rt.json';
+				infoURL = '/movies/rt/' + movieID + ".json";
 				$.ajax({
 			        type: "GET",
 			        url:infoURL,

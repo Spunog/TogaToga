@@ -7,7 +7,7 @@ class Feed < ActiveRecord::Base
 		site = args[:site]
 		movie = args[:movie]
 
-		if movie.feeds.count > 0
+		if movie.feeds.where(site: site).count > 0
 			feeds_to_remove = movie.feeds.where("site = ? AND created_at <= ?", :site, self.max_feed_age)
 			logger.info "Remove old cache for #{movie.title}. Total: #{feeds_to_remove.count}"
 			feeds_to_remove.destroy_all
@@ -24,21 +24,36 @@ class Feed < ActiveRecord::Base
 			Feed.clear_cache(site: site, movie: movie)
 		end
 
-		if movie.feeds.count < 1
-	      # Get new feed
-	      redditURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(movie.title)}#&restrict_sr=on&sort=relevance&t=all"
-	      logger.info "Reddit JSON URL: #{redditURL} "
-	      feedData = HTTParty.get(redditURL)
+		if movie.feeds.where(site: site).count < 1
+			# Get new feed
+
+			case site
+			when "reddit"
+				feedURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(movie.title)}#&restrict_sr=on&sort=relevance&t=all"
+	      		logger.info "Reddit JSON URL: #{feedURL} "
+	      		feedData = HTTParty.get(feedURL)
+			when "rotten_tomatoes"
+			    rotten_tomato_api = Api::Rotten_Tomatoes.new(:apikey => ENV["ROTTEN_TOMATOES_API_KEY"])    
+			    
+			    # Get Rotten Tomatoes ID
+			    rt_movie = rotten_tomato_api.find_movie_by_imdb_id(movie.imdb_id)
+			    rt_id = rt_movie['id']
+
+			    # Get Reviews
+			    feedData = rotten_tomato_api.top_critic_reviews_for_movie(rt_id)
+			    feedData["movie"] = rt_movie
+			    logger.info "========= Rotten Tomatoes JSON Live Fetch Complete ========="
+			end
 
 	      # Cache Feed
 	      feed = movie.feeds.build
-	      feed.site = 'reddit'
+	      feed.site = site
 	      feed.jsonData = feedData
 	      feed.save!
 	    else
 	      # Use Cache
-	      logger.info "Using cache feed for movie: #{movie.title}"
-	      feedData = movie.feeds.where(site: 'reddit').first.jsonData
+	      logger.info "========= Using cache feed for movie: #{movie.title} ========="
+	      feedData = movie.feeds.where(site: site).first.jsonData
 	    end
 
 	    return feedData

@@ -19,8 +19,5 @@ module Api
 			HTTParty.get(related_uri)
 		end
 
-		# http://api.trakt.tv/movie/related.json/***REMOVED***/tt1285016
-
-		
 	end
 end

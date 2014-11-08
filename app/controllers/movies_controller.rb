@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
-  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related, :reddit]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related, :reddit, :rt]
 
   # GET /movies
   # GET /movies.json
@@ -15,10 +15,12 @@ class MoviesController < ApplicationController
   end
 
   def rt
-    rt_movie_responce = HTTParty.get('http://www.togatoga.me/home/apiRTMovieTest.json')
-    rt_movie_review_responce = HTTParty.get('http://www.togatoga.me/home/apiRTTest.json')
-    @movie = rt_movie_responce
-    @reviews = rt_movie_review_responce
+    @rt_critic_reviews = Feed.get_feeds(movie: @movie, site: 'rotten_tomatoes', clear_cache: :true)
+
+    # http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=&q=Toy+Story+3&page_limit=1
+    # rt_movie_responce = HTTParty.get('http://www.togatoga.me/home/apiRTMovieTest.json')
+    # rt_movie_review_responce = HTTParty.get('http://www.togatoga.me/home/apiRTTest.json')
+        
   end
 
   def reddit
