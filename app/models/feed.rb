@@ -18,6 +18,12 @@ class Feed < ActiveRecord::Base
 	def self.get_feeds(args={})
 		site = args[:site]
 		movie = args[:movie]
+		clear_cache = args[:clear_cache]
+
+		if clear_cache
+			Feed.clear_cache(site: site, movie: movie)
+		end
+
 		if movie.feeds.count < 1
 	      # Get new feed
 	      redditURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(movie.title)}#&restrict_sr=on&sort=relevance&t=all"
