@@ -1,15 +1,14 @@
 class MoviesController < ApplicationController
+  require 'uri'
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
-  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related, :reddit]
   before_filter :set_trakt, :only => [:refresh, :show, :related]
 
   # GET /movies
   # GET /movies.json
   def index
     per_page = (params.has_key?(:per_page) && params[:per_page].to_i != 0) ? params[:per_page].to_i : 24
-    # @movies = Movie.all.page(params[:page]).per_page(per_page)
     @movies = Movie.joins(:trending).all.page(params[:page]).per_page(per_page)
-
   end
 
   # GET /movies/1
@@ -25,7 +24,9 @@ class MoviesController < ApplicationController
   end
 
   def reddit
-    reddit = HTTParty.get('http://localhost:3000/home/reddit.json')
+    redditURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(@movie.title)}#&restrict_sr=on&sort=relevance&t=all"
+    logger.info "Reddit JSON URL: " + redditURL
+    reddit = HTTParty.get(redditURL)
     @reddit = reddit
   end
 
@@ -40,8 +41,11 @@ class MoviesController < ApplicationController
       @relatedMovies = cachedRelatedMovies
     else
       # Related Movies 
-      # response = @trakt.getRelated(@movie.imdb_id)
-      response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
+      if isDev
+        response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
+      else
+        response = @trakt.getRelated(@movie.imdb_id)
+      end
 
       if response.code == 200
           response.each do |movie_item|

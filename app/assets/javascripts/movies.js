@@ -115,7 +115,7 @@
 			    break;
 			  case '#reddit':
 			  	$(itemSelector).empty().html(getLoaderHTML());
-				infoURL = '/movies/reddit.json';
+				infoURL = '/movies/reddit.json?id=' + movieID;
 				$.ajax({
 			        type: "GET",
 			        url:infoURL,
@@ -126,7 +126,7 @@
 								$('#reddit').empty().html(html);
 			                  },
 			        error: function(){
-			        			var errorHTML = '<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">Unable to retrieve Rotten Tomatoes Reviews at this time. Please try again later.</div>';
+			        			var errorHTML = '<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">Unable to retrieve Reddit items at this time. Please try again later.</div>';
 			        			$('#reddit').empty().html(errorHTML);
 			        		}
 				});

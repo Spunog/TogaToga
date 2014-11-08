@@ -1,6 +1,6 @@
 {{#reddit}}
   <article class="post">
-    <a href="{{data.url}}"><img src="{{data.thumbnail}}" alt="" height="100" class="thumbnail" /></a>
+    <a href="{{data.url}}"><img src="{{reddit_thumb data.thumbnail}}" alt="" height="100" class="thumbnail" /></a>
     <h1><a href="{{data.url}}">{{truncate data.title 110}}</a></h1>
     <div>
       Submitted {{prettyUnixFromNow data.created_utc}} - {{prettyUnix data.created_utc}}
@@ -9,7 +9,7 @@
       Author: {{data.author}}
     </div>
     
-    <div>
+    <div class='comments'>
       <a href="http://www.reddit.com{{data.permalink}}">
         <span class="badge">
           <span class="glyphicon glyphicon-comment"></span>

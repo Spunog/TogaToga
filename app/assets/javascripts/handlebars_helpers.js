@@ -31,3 +31,8 @@ Handlebars.registerHelper("prettyUnix", function(unixtime) {
 Handlebars.registerHelper("prettifyDateLong", function(dateitem) {
     return moment(dateitem).format('MMMM Do YYYY');
 });
+
+Handlebars.registerHelper("reddit_thumb", function(thumbnail) {
+	var src = (thumbnail == 'self' || thumbnail == 'default' || thumbnail=='') ?  '../assets/reddit.gif' : thumbnail;
+    return src;
+});
