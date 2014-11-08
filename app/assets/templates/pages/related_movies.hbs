@@ -1,0 +1,32 @@
+<div class="row">
+
+<div class='col-xs-12'>
+  <h3>
+    Movies similar to <em>{{mainMovieTitle}}</em>
+  </h3>
+</div>
+
+{{#movies}}
+  <div class='col-md-6 col-xs-6'>
+    <div class='related-movie'>
+      <a href='{{movieurl}}' class='list-group-item row'>
+
+        <div class='col-sm-2 col-xs-12 text-center'>
+          <img src='{{posterSmallURL}}' width='64' class='img-responsive' />
+          <small class='visible-xs'>{{truncate title 70}}</small>
+        </div>
+
+        <div class='col-sm-10 hidden-xs'>
+          <h4 class="list-group-item-heading">{{truncate title 40}}</h4>
+          <p class="list-group-item-text visible-xs">{{truncate overview 50}}</p>
+          <p class="list-group-item-text visible-sm">{{truncate overview 70}}</p>
+          <p class="list-group-item-text visible-md">{{truncate overview 120}}</p>
+          <p class="list-group-item-text visible-lg">{{truncate overview 160}}</p>
+        </div>
+        
+      </a>
+    </div>
+  </div>
+{{/movies}}
+
+</div>

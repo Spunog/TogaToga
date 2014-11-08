@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-	before_filter :authenticate_user!, :except => [:apitest, :apitest2, :apiRTMovieTest, :apiRTTest]
+	before_filter :authenticate_user!, :except => [:apitest, :apitest2, :apiRTMovieTest, :apiRTTest, :reddit]
 	
 	def index
 		# render layout: "superhero"
@@ -22,6 +22,11 @@ class HomeController < ApplicationController
 	end
 
 	def apiRTMovieTest
+		render :layout => false
+		request.env['CONTENT_TYPE'] = 'application/json'
+	end
+
+	def reddit
 		render :layout => false
 		request.env['CONTENT_TYPE'] = 'application/json'
 	end

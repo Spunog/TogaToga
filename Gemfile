@@ -64,6 +64,8 @@ gem 'unicorn-rails' # used to run unicorn locally for testing by default
 
 gem 'httparty'
 
+gem 'handlebars_assets'
+
 # gem 'virtus' # http and datawrapping
 
 

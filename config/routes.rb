@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   get '/movies/related/:id', to: 'movies#related'
 
   get 'movies/refresh'
+  get 'movies/reddit'
   get 'movies/rt'
   get 'info/registrations'
 
   get 'home/trakt'
 
   # Tests
+  get 'home/reddit'
   get 'home/apiRTMovieTest'
   get 'home/apiRTTest'
   get 'home/apitest2'

@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require moment
-//= require handlebars
+//= require handlebars.runtime
+//= require handlebars_helpers
+//= require_tree ../templates
 //= require site
 //= require turbolinks
 //= require superhero/loader

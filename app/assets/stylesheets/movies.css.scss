@@ -123,13 +123,39 @@
     height:125px;
 }
 
+.clear {
+  clear: both;
+  content: '';
+  display: block; 
+}
 
-
-
-
-
-
-
-
-
-
+article.post {
+    border-bottom: 1px dotted rgba(180, 180,   180, 1);
+    margin-bottom: 10px;
+    padding: 0 0 0 110px;
+    &:last-of-type {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+    &:after {
+       @extend .clear; 
+    }
+    img {
+      float: left;
+      margin-left: -110px;
+      width: 100px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: normal;
+      margin:0;            
+    }
+    a {
+      color:rgb(220,78,0);
+      text-decoration: none;
+    }
+    time {
+      font-size: 11px;
+      font-weight: bold; 
+    }
+}

@@ -24,6 +24,11 @@ class MoviesController < ApplicationController
     @reviews = rt_movie_review_responce
   end
 
+  def reddit
+    reddit = HTTParty.get('http://localhost:3000/home/reddit.json')
+    @reddit = reddit
+  end
+
   def related
 
     @errors = []
@@ -35,8 +40,8 @@ class MoviesController < ApplicationController
       @relatedMovies = cachedRelatedMovies
     else
       # Related Movies 
-      response = @trakt.getRelated(@movie.imdb_id)
-      # response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
+      # response = @trakt.getRelated(@movie.imdb_id)
+      response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
 
       if response.code == 200
           response.each do |movie_item|

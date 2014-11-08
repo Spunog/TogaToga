@@ -25,7 +25,7 @@
           <!-- Right Side -->
           <div class="col-md-9">
 
-            <h1><%= @movie.title %></h1>
+            <h1 class='js-main-movie-title'><%= @movie.title %></h1>
             <h6><em><%= @movie.tagline %></em></h6>
             <p><%= @movie.overview %></p>
 
@@ -71,7 +71,7 @@
              role="tab"
              data-toggle="tab">Rotten Tomatoes<sup>&copy;</sup> Reviews</a></li>
       <li>
-        <a href="#trakt-reviews"
+        <a href="#reddit"
            class='ticket-menu-item reddit text-hide'
            role="tab"
            data-toggle="tab">Reddit</a>
@@ -86,122 +86,18 @@
 
 </div>
 
-<div class="row">
+<div class="row js-movie-contents">
   <div class="col-md-12">
 
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane" id="recommendations"></div>
-      
       <div class="tab-pane active" id="Rotten-Tomatoes-Reviews"></div>
-      
-      <div class="tab-pane" id="trakt-reviews">
-        <h3>Reddit - wip</h3>
-      </div>
-      
-      <div class="tab-pane" id="cinema-times">
-        <h3>Cinema - wip</h3>
-      </div>
-    
+      <div class="tab-pane" id="reddit"></div>
+      <div class="tab-pane" id="cinema-times"></div>
     </div>
   </div>
 </div>
-
-<!-- Related Movies -->
-<script id="template-related-movie-info" type="x-tmpl-handlebars">
-
-  <div class="row">
-
-    <div class='col-xs-12'>
-      <h3>
-        Movies similar to <em><%= @movie.title %></em>
-      </h3>
-    </div>
-
-    {{#movies}}
-      <div class='col-md-6 col-xs-6'>
-        <div class='related-movie'>
-          <a href='{{movieurl}}' class='list-group-item row'>
-
-            <div class='col-sm-2 col-xs-12 text-center'>
-              <img src='{{posterSmallURL}}' width='64' class='img-responsive' />
-              <small class='visible-xs'>{{truncate title 70}}</small>
-            </div>
-
-            <div class='col-sm-10 hidden-xs'>
-              <h4 class="list-group-item-heading">{{truncate title 40}}</h4>
-              <p class="list-group-item-text visible-xs">{{truncate overview 50}}</p>
-              <p class="list-group-item-text visible-sm">{{truncate overview 70}}</p>
-              <p class="list-group-item-text visible-md">{{truncate overview 120}}</p>
-              <p class="list-group-item-text visible-lg">{{truncate overview 160}}</p>
-            </div>
-            
-          </a>
-        </div>
-      </div>
-    {{/movies}}
-
-  </div>
-
-</script>
-
-<!-- Related Movies -->
-<script id="template-rotten-tomato-review" type="x-tmpl-handlebars">
-
-  <h3>Critic Reviews - wip</h3>
-  <hr />
-  <p>Movie Reviews From Rotten Tomatoes<sup>&copy;</sup></p>
-
-  <div class='row'>
-    <div class='col-sm-3'>
-      <h4>Rotten Tomatoes<sup>&copy;</sup> Score</h4>
-      <h6>TOMATOMETER<sup>&copy;</sup></h6>
-      <div>
-
-        <div class='row'>
-
-          <div class='col-xs-3 text-center'>
-            IMAGE
-          </div>
-
-          <div class='col-xs-3 text-cente'>
-            {{movie.ratings.critics_score}}%
-          </div>
-
-          <div class='col-xs-6 text-cente'>
-            <div class="progress">
-              <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: {{movie.ratings.critics_score}}%">
-                <span class="sr-only">{{movie.ratings.critics_score}}% Complete (danger)</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div>Reviews Counted: {{reviews_total}}</div>
-      <div>See all <a href='{{movie.links.alternate}}reviews'>{{movie.title}}</a> reviews</div>
-    </div>
-    <div class='col-sm-9'>
-      <h4>TOP CRITIC REVIEWS<sup>&copy;</sup></h4>
-      <div class="list-group">
-        {{#reviews}}
-          <div class='list-group-item row'>
-            <div class='col-sm-2'>
-              {{freshness}}
-            </div>
-            <div class='col-sm-10'>
-              <p>{{quote}}</p>
-              <em>- {{critic}}, {{publication}}, {{prettifyDate date}}</em>
-            </div>
-          </div>
-        {{/reviews}}
-
-      </div>
-    </div>
-
-  </div>
-
-</script>
 
 <% if false %>
   <%= link_to 'Edit', edit_movie_path(@movie) %> |
