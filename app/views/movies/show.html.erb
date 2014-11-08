@@ -92,7 +92,9 @@
     <!-- Tab panes -->
     <div class="tab-content">
       <div class="tab-pane" id="recommendations"></div>
-      <div class="tab-pane active" id="Rotten-Tomatoes-Reviews"></div>
+      <% if user_signed_in? %>
+        <div class="tab-pane active" id="Rotten-Tomatoes-Reviews"></div>
+      <% end %>
       <div class="tab-pane" id="reddit"></div>
       <div class="tab-pane" id="cinema-times"></div>
     </div>

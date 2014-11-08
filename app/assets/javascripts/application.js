@@ -12,12 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require superhero/loader
+//= require superhero/bootswatch
+
 //= require moment
 //= require handlebars.runtime
 //= require handlebars_helpers
 //= require_tree ../templates
 //= require site
-//= require turbolinks
-//= require superhero/loader
-//= require superhero/bootswatch
 //= require movies
+
+// Turbo Links must be last!
+//= require turbolinks
