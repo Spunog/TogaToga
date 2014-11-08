@@ -4,6 +4,7 @@ class Movie < ActiveRecord::Base
 	has_many :links, :dependent => :destroy
 	has_many :relateds, :through => :links
 	has_one :trending
+	has_many :feeds, dependent: :destroy
 
 	def released_formatted
 		Time.at(self.released).to_datetime.strftime("%d %b %Y")

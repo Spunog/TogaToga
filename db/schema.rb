@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141102185539) do
+ActiveRecord::Schema.define(version: 20141108013622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "feeds", force: true do |t|
+    t.string   "site"
+    t.integer  "movie_id"
+    t.text     "jsonData"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "images", force: true do |t|
     t.string   "url",        limit: 2083

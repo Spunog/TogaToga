@@ -24,9 +24,32 @@ class MoviesController < ApplicationController
   end
 
   def reddit
-    redditURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(@movie.title)}#&restrict_sr=on&sort=relevance&t=all"
-    logger.info "Reddit JSON URL: " + redditURL
-    reddit = HTTParty.get(redditURL)
+
+    #Clean Old Cache Files For This Movie
+    if @movie.feeds.count > 0
+      maxFeedAge = DateTime.now - 3.minutes
+      feedsToRemove = @movie.feeds.where("site = ? AND created_at <= ?", :reddit, maxFeedAge)
+      logger.info "Remove old records. Total: #{feedsToRemove.count}"
+      feedsToRemove.destroy_all
+    end
+
+    if @movie.feeds.count < 1
+      # Get new feed
+      redditURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(@movie.title)}#&restrict_sr=on&sort=relevance&t=all"
+      logger.info "Reddit JSON URL: #{redditURL} "
+      reddit = HTTParty.get(redditURL)
+
+      # Cache Feed
+      feed = @movie.feeds.build
+      feed.site = 'reddit'
+      feed.jsonData = reddit
+      feed.save!
+    else
+      # Use Cache
+      logger.info "Using cache feed for movie: " + @movie.title
+      reddit = @movie.feeds.where(site: 'reddit').first.jsonData
+    end
+
     @reddit = reddit
   end
 
