@@ -1,7 +1,6 @@
 class MoviesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
   before_action :set_movie, only: [:show, :edit, :update, :destroy, :related, :reddit]
-  before_filter :set_trakt, :only => [:refresh, :show, :related]
 
   # GET /movies
   # GET /movies.json
@@ -23,9 +22,7 @@ class MoviesController < ApplicationController
   end
 
   def reddit
-    #Clean Old Cache Files For This Movie
-    Feed.clear_cache(site: 'reddit', movie: @movie)
-    @reddit = Feed.get_feeds(site: 'reddit', movie: @movie)
+    @reddit = Feed.get_feeds(movie: @movie, site: 'reddit', clear_cache: :true)
   end
 
   def related
@@ -43,7 +40,7 @@ class MoviesController < ApplicationController
 
   # GET /movies/refresh - trending videos
   def refresh    
-    @result, @processedMovies, @errors = Movie.refresh
+    @result, @processedMovies, @errors = Movie.refresh_listings
   end
 
   # POST /movies
@@ -95,10 +92,6 @@ class MoviesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def movie_params
       params.require(:movie).permit(:title, :year, :released, :url, :trailer, :runtime, :tagline, :certification, :imdb_id, :tmdb_id, :poster, :watchers)
-    end
-
-    def set_trakt
-      @trakt = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])
     end
 
 end
