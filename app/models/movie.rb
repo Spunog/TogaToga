@@ -51,7 +51,7 @@ class Movie < ActiveRecord::Base
 
 	# Class Methods
 
-	def self.refresh
+	def self.refresh_listings
 
 		if ENV['RAILS_ENV'] == "development"
 			response = HTTParty.get('http://localhost:3000/home/apitest.json') # static json file used for testing
