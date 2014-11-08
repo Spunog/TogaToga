@@ -15,7 +15,11 @@
  *= require movies
  *= require info
  *= require font-awesome
-  *= require hover
+ *= require hover
+ *= require rotten_tomatoes
  */
  body { padding-top: 60px; }
  .margin_left{margin-left: 1em;}
+ .margin_bottom{margin-bottom: 1em;}
+ .margin_top{margin-bottom: 1em;}
+ .margin_right{margin-bottom: 1em;}

@@ -60,11 +60,7 @@
 <div class="panel panel-success">
 
   <ul class="js-movie-tabs ticket-menu" role="tablist" data-movie-id="<%= @movie.id %>">
-      <li>
-        <a class='js-default-tab ticket-menu-item similar text-hide'
-             href="#recommendations"
-             role="tab"
-             data-toggle="tab">Similar</a></li>
+
       <% if user_signed_in? %>
         <li>
           <a href="#Rotten-Tomatoes-Reviews"
@@ -73,6 +69,13 @@
                data-toggle="tab">Rotten Tomatoes<sup>&copy;</sup> Reviews</a>
         </li>
       <% end %>
+
+      <li>
+        <a class='js-default-tab ticket-menu-item similar text-hide'
+             href="#recommendations"
+             role="tab"
+             data-toggle="tab">Similar</a></li>
+
       <li>
         <a href="#reddit"
            class='ticket-menu-item reddit text-hide'
