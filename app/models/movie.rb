@@ -159,6 +159,7 @@ class Movie < ActiveRecord::Base
 	      if ENV['RAILS_ENV'] == "development"
 	        response = HTTParty.get('http://localhost:3000/home/apitest2.json') # static json file used for testing
 	      else
+	      	@trakt = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])
 	        response = @trakt.getRelated(movie.imdb_id)
 	      end
 
