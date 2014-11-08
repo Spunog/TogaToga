@@ -1,22 +1,38 @@
-{{#reddit}}
-  <article class="post">
-    <a href="{{data.url}}"><img src="{{reddit_thumb data.thumbnail}}" alt="" height="100" class="thumbnail" /></a>
-    <h1><a href="{{data.url}}">{{truncate data.title 110}}</a></h1>
-    <div>
-      Submitted {{prettyUnixFromNow data.created_utc}} - {{prettyUnix data.created_utc}}
-    </div>
-    <div>
-      Author: {{data.author}}
-    </div>
-    
-    <div class='comments'>
-      <a href="http://www.reddit.com{{data.permalink}}">
-        <span class="badge">
-          <span class="glyphicon glyphicon-comment"></span>
-           {{data.num_comments}}
-        </span>
-      </a>
-    </div>
+<div class='reddit-links'>
 
-  </article>
-{{/reddit}}
+  <div class='row'>
+    <div class="col-xs-12">
+      <h3>
+        Reddit movie search results for: '<em>{{movie_title}}</em>'
+      </h3>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-xs-12'>
+      {{#reddit}}
+        <article class="post">
+          <a href="{{data.url}}"><img src="{{reddit_thumb data.thumbnail}}" alt="" height="100" class="thumbnail" /></a>
+          <h1><a href="{{data.url}}">{{truncate data.title 110}}</a></h1>
+          <div>
+            Submitted {{prettyUnixFromNow data.created_utc}} - {{prettyUnix data.created_utc}}
+          </div>
+          <div>
+            Author: {{data.author}}
+          </div>
+          
+          <div class='comments'>
+            <a href="http://www.reddit.com{{data.permalink}}">
+              <span class="badge">
+                <span class="glyphicon glyphicon-comment"></span>
+                 {{data.num_comments}}
+              </span>
+            </a>
+          </div>
+
+        </article>
+      {{/reddit}}
+    </div>
+  </div>
+
+</div>
