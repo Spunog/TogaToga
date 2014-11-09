@@ -7,6 +7,7 @@ class MoviesController < ApplicationController
   def index
     per_page = (params.has_key?(:per_page) && params[:per_page].to_i != 0) ? params[:per_page].to_i : 24
     @movies = Movie.joins(:trending).all.page(params[:page]).per_page(per_page)
+    @include_header = true
   end
 
   # GET /movies/1

@@ -19,52 +19,65 @@
   </head>
   <body>
 
+    <% if !@include_header.nil? %>
+    <header>
+      <div class='container'>
+        <div class="jumbotron text-center">
+         <h1>Toga Toga!</h1>
+        </div>
+      </div>
+    </header>
+    <% end %>
+
     <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          
-          <%= link_to(root_path,class:"navbar-brand") do %>
-            <span class="glyphicon glyphicon-film"></span>
-            TogaToga.me
+    <div <% if !@include_header.nil? %>id='nav'<% end %>>
+      <div class="navbar navbar-inverse">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            
+            <%= link_to(root_path,class:"navbar-brand") do %>
+              <span class="glyphicon glyphicon-film"></span>
+              TogaToga.me
+            <% end %>
+
+          </div>
+
+          <% if user_signed_in? %>
+            <!-- Member Menu -->
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><%= link_to :Trending, movies_path %></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+                    <li class="divider"></li>
+                    <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+                  </ul>
+                </li>
+              </ul>
+            </div><!--/.nav-collapse -->
+
+          <% else %>
+            <!-- Guest Menu -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="active"><%= link_to :Trending, movies_path %></li>
+              </ul>
+            </div>
           <% end %>
 
         </div>
-
-        <% if user_signed_in? %>
-          <!-- Member Menu -->
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><%= link_to :Trending, movies_path %></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
-                  <li class="divider"></li>
-                  <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
-                </ul>
-              </li>
-            </ul>
-          </div><!--/.nav-collapse -->
-
-        <% else %>
-          <!-- Guest Menu -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li class="active"><%= link_to :Trending, movies_path %></li>
-            </ul>
-          </div>
-        <% end %>
-
       </div>
     </div>
+    
 
     <div class="container theme-showcase">
 

@@ -24,3 +24,9 @@
 
 // Turbo Links must be last!
 //= require turbolinks
+
+$('#nav').affix({
+    offset: {
+      top: $('header').height()
+    }
+}); 
