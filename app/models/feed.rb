@@ -25,7 +25,7 @@ class Feed < ActiveRecord::Base
 		end
 
 		if movie.feeds.where(site: site).count < 1
-			# Get new feed
+			# No cached version exists, fetch new data
 
 			case site
 			when "reddit"
@@ -51,7 +51,7 @@ class Feed < ActiveRecord::Base
 	      feed.jsonData = feedData
 	      feed.save!
 	    else
-	      # Use Cache
+	      # Use Cached version
 	      logger.info "========= Using cache feed for movie: #{movie.title} ========="
 	      feedData = movie.feeds.where(site: site).first.jsonData
 	    end

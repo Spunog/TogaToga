@@ -104,7 +104,6 @@ class Movie < ActiveRecord::Base
         movie.certification =   movie_feed['certification']
         movie.imdb_id       =   movie_feed['imdb_id']
         movie.tmdb_id       =   movie_feed['tmdb_id']
-        movie.poster        =   movie_feed['poster']
         movie.watchers      =   movie_feed['watchers']
 
         # Overview
@@ -114,18 +113,22 @@ class Movie < ActiveRecord::Base
           movie.overview = ''
         end
 
-        # Images - Poster
-        if movie_feed['images'].has_key?("poster")
-          poster = movie.images.new
-          poster.type_id = 'poster'
-          poster.url = movie_feed['images']['poster']
-        end
+        # Images - Poster, only update if current movie blank
+        if movie.post.blank?
+        	movie.poster        =   movie_feed['poster']
 
-        # Images - Fanart
-        if movie_feed['images'].has_key?("fanart")
-          fanart = movie.images.new
-          fanart.type_id = 'fanart'
-          fanart.url = movie_feed['images']['fanart']
+	        if movie_feed['images'].has_key?("poster")
+	          poster = movie.images.new
+	          poster.type_id = 'poster'
+	          poster.url = movie_feed['images']['poster']
+	        end
+
+	        # Images - Fanart
+	        if movie_feed['images'].has_key?("fanart")
+	          fanart = movie.images.new
+	          fanart.type_id = 'fanart'
+	          fanart.url = movie_feed['images']['fanart']
+	        end
         end
 
         # Trending

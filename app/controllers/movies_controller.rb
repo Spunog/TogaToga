@@ -16,12 +16,7 @@ class MoviesController < ApplicationController
   end
 
   def rt
-    @rt_critic_reviews = Feed.get_feeds(movie: @movie, site: 'rotten_tomatoes', clear_cache: :true)
-
-    # http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=&q=Toy+Story+3&page_limit=1
-    # rt_movie_responce = HTTParty.get('http://www.togatoga.me/home/apiRTMovieTest.json')
-    # rt_movie_review_responce = HTTParty.get('http://www.togatoga.me/home/apiRTTest.json')
-        
+    @rt_critic_reviews = Feed.get_feeds(movie: @movie, site: 'rotten_tomatoes', clear_cache: :true)  
   end
 
   def reddit

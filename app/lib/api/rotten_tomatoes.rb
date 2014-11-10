@@ -2,8 +2,6 @@ module Api
 	class Rotten_Tomatoes
 		require "httparty"
 		require "uri"
-		# Trending API - api.trakt.tv/movies/trending.json/ENV["TRAKT_API_KEY"]
-		# http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=&q=Toy+Story+3&page_limit=1
 
 		BASE_URI = 'http://api.rottentomatoes.com/api/public/v1.0'
 
