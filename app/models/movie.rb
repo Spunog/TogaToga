@@ -114,7 +114,7 @@ class Movie < ActiveRecord::Base
         end
 
         # Images - Poster, only update if current movie blank
-        if movie.poster.blank?
+        if movie.new_record? || movie.poster.blank?
         	movie.poster        =   movie_feed['poster']
 
 	        if movie_feed['images'].has_key?("poster")
