@@ -68,5 +68,6 @@ gem 'handlebars_assets'
 
 # gem 'virtus' # http and datawrapping
 
+gem 'newrelic_rpm' # used for tracking
 
 
