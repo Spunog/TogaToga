@@ -53,7 +53,7 @@ class Movie < ActiveRecord::Base
 
 	def self.refresh_listings
 
-		if true || ENV['RAILS_ENV'] == "development"
+		if ENV['RAILS_ENV'] == "development"
 			response = HTTParty.get('http://www.togatoga.me/home/apitest.json') # static json file used for testing
 		else
 			@trakt = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])
