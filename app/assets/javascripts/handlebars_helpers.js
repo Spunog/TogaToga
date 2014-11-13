@@ -39,27 +39,29 @@ Handlebars.registerHelper("reddit_thumb", function(thumbnail) {
 
 Handlebars.registerHelper("rt_rating_image", function(rating) {
 	// fresh, rotten, certified fresh, upright, want to see, spilled
-	var image;
+	var image = '';
 
-	switch (rating.toLowerCase()) {
-	  case 'certified fresh':
-	    image = 'certified';
-	    break;
-	  case 'fresh':
-	    image = 'fresh';
-	    break;
-	  case 'rotten':
-	    image = 'rotten';
-	    break;
-	  case 'spilled':
-	    image = 'spilled';
-	    break;
-	  case 'wts':
-	    image = 'wts';
-	    break;
-	  default:
-	    image = '';
-	    break;
+	if(!rating){
+		switch (rating.toLowerCase()) {
+		  case 'certified fresh':
+		    image = 'certified';
+		    break;
+		  case 'fresh':
+		    image = 'fresh';
+		    break;
+		  case 'rotten':
+		    image = 'rotten';
+		    break;
+		  case 'spilled':
+		    image = 'spilled';
+		    break;
+		  case 'wts':
+		    image = 'wts';
+		    break;
+		  default:
+		    image = '';
+		    break;
+		}
 	}
 
     return image;
