@@ -18,8 +18,9 @@ Rails.application.routes.draw do
 
   resources :movies
 
-  match 'users/sign_up', to: 'info#registrations', via: [:get, :post]
-  devise_for :users
+  # match 'users/sign_up', to: 'info#registrations', via: [:get, :post]
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   root 'movies#index'
 

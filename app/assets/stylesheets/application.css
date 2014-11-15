@@ -29,3 +29,9 @@
    padding-top:0px;
    margin-top: 0px;
 }
+
+.avatar{
+	position:absolute;
+	top:0;
+	right:30px;
+}

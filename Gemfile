@@ -38,6 +38,7 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
+gem 'omniauth-facebook'
 
 gem 'therubyracer', :require => 'v8'
 gem 'twitter-bootswatch-rails', '~> 3.2'
