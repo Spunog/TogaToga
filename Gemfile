@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
 # Use postgresql as the database for Active Record
@@ -47,10 +46,10 @@ gem 'twitter-bootswatch-rails-fontawesome'
 gem 'font-awesome-rails'
 
 gem 'jquery-turbolinks' # fixes issues with on load events
+
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
-# gem 'jquery-ui-rails'
 
 gem 'rails_12factor', group: :production
 
@@ -66,8 +65,4 @@ gem 'httparty'
 
 gem 'handlebars_assets'
 
-# gem 'virtus' # http and datawrapping
-
-gem 'newrelic_rpm' # used for tracking
-
-
+gem 'newrelic_rpm', group: :production # used for tracking
