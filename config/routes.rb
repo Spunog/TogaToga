@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :users do
+    resources :favourites
+    resources :watches, :path => "watched"     
+  end
+
   get '/movies/related/:id', to: 'movies#related'
   get '/movies/rt/:id', to: 'movies#rt'
 

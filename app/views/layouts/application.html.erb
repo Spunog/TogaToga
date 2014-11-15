@@ -51,7 +51,12 @@
             <!-- Member Menu -->
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><%= link_to :Trending, movies_path %></li>
+                <li class="<%= current_controller("movies",:active) %>">
+                  <%= link_to :Trending, movies_path %>
+                </li>
+                <li class="<%= current_controller("favourites",:active) %>">
+                  <%= link_to :Favourites, user_favourites_path(current_user) %>
+                </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

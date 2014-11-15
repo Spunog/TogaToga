@@ -1,9 +1,10 @@
 .tomatometer, .tomatometer > span{
-display: block;
-width: 188px;
-height: 20px;
-margin: 4px 0;
-background: transparent url('rt/tomatometer_bar_bg.png') no-repeat 0 0;
+	display: block;
+	width: 188px;
+	height: 20px;
+	margin: 4px 0;
+	background: transparent url('rt/tomatometer_bar_bg.png') no-repeat 0 0;
+	background-position: 0 -20px;
 }
 
 .tomatometer > span {
@@ -13,17 +14,17 @@ float: left;
 }
 
 .tomatometer.fresh > span, .tomatometer.certified > span {
-background-position: 0 -20px;
+	background-position: 0 -20px;
 }
 
 .tomatometer.rotten > span{
-background-position:0 -40px;
+	background-position:0 -40px;
 }
 
 .icon {
-display: inline-block;
-vertical-align: text-bottom;
-background:transparent url('rt/icons-v2.png') no-repeat -312px -160px;
+	display: inline-block;
+	vertical-align: text-bottom;
+	background:transparent url('rt/icons-v2.png') no-repeat -312px -160px;
 }
 .icon.huge { width:64px; height:64px; }
 .icon.big { width:48px; height:48px; }
