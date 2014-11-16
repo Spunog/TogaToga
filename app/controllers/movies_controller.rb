@@ -13,6 +13,7 @@ class MoviesController < ApplicationController
   # GET /movies/1
   # GET /movies/1.json
   def show
+    @userID = (current_user.blank?) ? 0 : current_user.id
   end
 
   def rt

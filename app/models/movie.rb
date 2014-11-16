@@ -3,8 +3,9 @@ class Movie < ActiveRecord::Base
 	validates_uniqueness_of :imdb_id
 	has_many :links, :dependent => :destroy
 	has_many :relateds, :through => :links
-	has_one :trending
+	has_one  :trending
 	has_many :feeds, dependent: :destroy
+	has_many :favourites, dependent: :destroy
 
 	# Instance Methods
 

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
   resources :users do
     resources :favourites
     resources :watches, :path => "watched"     
@@ -25,7 +27,7 @@ Rails.application.routes.draw do
 
   # match 'users/sign_up', to: 'info#registrations', via: [:get, :post]
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  
 
   root 'movies#index'
 

@@ -5,21 +5,8 @@ class FavouritesController < ApplicationController
   # GET /favourites
   # GET /favourites.json
   def index
-    @favourites = @user.favourites.all
-  end
-
-  # GET /favourites/1
-  # GET /favourites/1.json
-  def show
-  end
-
-  # GET /favourites/new
-  def new
-    @favourite = @user.favourites.new
-  end
-
-  # GET /favourites/1/edit
-  def edit
+    per_page = (params.has_key?(:per_page) && params[:per_page].to_i != 0) ? params[:per_page].to_i : 4
+    @favourites  = @user.favourites.joins(:movie).all.page(params[:page]).per_page(per_page)
   end
 
   # POST /favourites
@@ -30,23 +17,9 @@ class FavouritesController < ApplicationController
     respond_to do |format|
       if @favourite.save
         format.html { redirect_to [@user,:favourites], notice: 'Favourite was successfully created.' }
-        format.json { render :show, status: :created, location: @favourite }
+        format.json { render :show, status: :created, location: [@user,:favourites] }
       else
         format.html { render :new }
-        format.json { render json: @favourite.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /favourites/1
-  # PATCH/PUT /favourites/1.json
-  def update
-    respond_to do |format|
-      if @favourite.update(favourite_params)
-        format.html { redirect_to @favourite, notice: 'Favourite was successfully updated.' }
-        format.json { render :show, status: :ok, location: @favourite }
-      else
-        format.html { render :edit }
         format.json { render json: @favourite.errors, status: :unprocessable_entity }
       end
     end

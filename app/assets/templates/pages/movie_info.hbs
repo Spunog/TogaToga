@@ -31,6 +31,11 @@
       </div>
 
       <div class="col-sm-6 text-right">
+
+        {{#ifCond userid ">" 0}}
+          <a href="#" data-id="{{ id }}" data-userid="{{ userid }}" class="btn btn-default js-add-to-favs">Add To Favourites</a>
+        {{/ifCond}}
+
         <a href="movies/{{ id }}" class="btn btn-primary">More Information</a>
       </div>
 

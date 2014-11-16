@@ -32,6 +32,30 @@ Handlebars.registerHelper("prettifyDateLong", function(dateitem) {
     return moment(dateitem).format('MMMM Do YYYY');
 });
 
+Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
+
+    switch (operator) {
+        case '==':
+            return (v1 == v2) ? options.fn(this) : options.inverse(this);
+        case '===':
+            return (v1 === v2) ? options.fn(this) : options.inverse(this);
+        case '<':
+            return (v1 < v2) ? options.fn(this) : options.inverse(this);
+        case '<=':
+            return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+        case '>':
+            return (v1 > v2) ? options.fn(this) : options.inverse(this);
+        case '>=':
+            return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+        case '&&':
+            return (v1 && v2) ? options.fn(this) : options.inverse(this);
+        case '||':
+            return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        default:
+            return options.inverse(this);
+    }
+});
+
 Handlebars.registerHelper("reddit_thumb", function(thumbnail) {
 	var src = (thumbnail == 'self' || thumbnail == 'default' || thumbnail=='') ?  '../assets/reddit.gif' : thumbnail;
     return src;
