@@ -19,19 +19,3 @@
  *= require rotten_tomatoes
  *= require index
  */
- 
- .margin_left{margin-left: 1em;}
- .margin_bottom{margin-bottom: 1em;}
- .margin_top{margin-bottom: 1em;}
- .margin_right{margin-bottom: 1em;}
-
- body{
-   padding-top:0px;
-   margin-top: 0px;
-}
-
-.avatar{
-	position:absolute;
-	top:0;
-	right:30px;
-}

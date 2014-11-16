@@ -1,26 +1,74 @@
-/* WIP  STYLES*/
 header {
-  height:120px;
-  background-size:100%;
-  background-repeat: no-repeat;
-  background-color: #DE6919;
-  color: black;
+    height: 120px;
+    // background-size:100%;
+    // background-repeat: no-repeat;
+    background-color: #DE6919;
+    color: white;
+    text-shadow: 0px 5px 2px rgba(10, 10, 10, 1);
+    //background-image: url("header_bg.png");
 }
-
-.jumbotron{
-  background-color: transparent;
-  padding: 0;
-  margin:0;
+.jumbotron {
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
 }
-
-.jumbotron h1{
-  font-family: 'Sigmar One', cursive;  
+.jumbotron h1 {
+    font-family: 'Sigmar One', cursive;
 }
-
 #nav.affix {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index:10;
+    z-index: 10;
+}
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    padding-top: 0px;
+    margin-top: 0px;
+    margin-bottom: 185px;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    
+    height: 165px;
+    background-color: #1F2D3D;
+    color: #495765;
+    background-image: url("footer_bg.png");
+
+    ul, li{
+      list-style: none;
+      margin:0 0 0.5em 0;
+      padding:0;
+    }
+
+    h5{
+      font-weight:bold;
+      border-bottom: 2px dashed;
+      padding: 0 0 0.5em 0;
+    }
+
+}
+.margin_left {
+    margin-left: 1em;
+}
+.margin_bottom {
+    margin-bottom: 1em;
+}
+.margin_top {
+    margin-bottom: 1em;
+}
+.margin_right {
+    margin-bottom: 1em;
+}
+.avatar {
+    position: absolute;
+    top: 0;
+    right: 30px;
 }
 @import url(https://fonts.googleapis.com/css?family=Sigmar+One);
