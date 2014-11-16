@@ -55,7 +55,11 @@
                   <%= link_to :Trending, movies_path %>
                 </li>
                 <li class="<%= current_controller("favourites",:active) %>">
-                  <%= link_to :Favourites, user_favourites_path(current_user) %>
+
+                  <%= link_to user_favourites_path(current_user) do %>
+                    Favourites <span class="badge margin_left js-favourite-count"><%= current_user.favourites.count %></span>
+                  <% end %>
+
                 </li>
               </ul>
               <ul class="nav navbar-nav navbar-right">
@@ -74,7 +78,10 @@
             <!-- Guest Menu -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav">
-                <li class="active"><%= link_to :Trending, movies_path %></li>
+                <li class="<%= current_controller("movies",:active) %>"><%= link_to :Trending, movies_path %></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li class='<%= current_controller("sessions",:active) %>'><%= link_to 'Sign In', new_user_session_path %></li>
               </ul>
             </div>
           <% end %>

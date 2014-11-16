@@ -20,6 +20,7 @@
 //= require handlebars_helpers
 //= require_tree ../templates
 //= require site
+//= require favourites
 //= require movies
 
 // Turbo Links must be last!

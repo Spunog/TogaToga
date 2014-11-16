@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
   # GET /movies/1.json
   def show
     @userID = (current_user.blank?) ? 0 : current_user.id
+    @isUserFavourite = Favourite.where(user_id: @userID, movie_id: @movie.id).count > 0 ? true : false
   end
 
   def rt

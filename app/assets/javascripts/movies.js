@@ -2,25 +2,6 @@
 
 	var lastMovieID = 0;
 
-	function addMovieToFavs(movieID,userID){
-
-		$.ajax({
-		    url: "/users/" + userID + "/favourites.json",
-		    type: "POST",
-		    data: {
-		    			 "favourite[movie_id]": movieID
-		    			,"favourite[user_id]": userID
-				  },
-		    success: function(resp){
-		    			alert('Movie added to your favourites!');
-		    		},
-	        error: function(){
-	        			alert('Unable to add movie to your favourites at this time.\nPlease try again later.')
-	        		}
-		});
-
-	};
-
 	//Main Functions
 	function hideOtherMoviePosterContainers(movieID){
 	    var $clickedMovie = $(".js-movie-item-" + movieID);
@@ -66,7 +47,7 @@
 			                        	event.preventDefault();
 			                        	var movieID = $(this).data('id');
 			                        	var userID = $(this).data('userid');
-			                        	addMovieToFavs(movieID,userID);
+			                        	favourite_create(movieID,userID);
 			                        });
 
 			                        //Bind Items

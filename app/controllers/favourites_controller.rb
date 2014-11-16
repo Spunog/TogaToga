@@ -1,4 +1,5 @@
 class FavouritesController < ApplicationController
+  before_filter :authenticate_user!, only: [:create, :destroy]
   before_action :get_user, only: [:index,:show,:edit,:update,:destroy,:new,:create]
   before_action :set_favourite, only: [:show, :edit, :update, :destroy]
 
@@ -12,17 +13,23 @@ class FavouritesController < ApplicationController
   # POST /favourites
   # POST /favourites.json
   def create
-    @favourite = @user.favourites.new(favourite_params)
 
-    respond_to do |format|
-      if @favourite.save
-        format.html { redirect_to [@user,:favourites], notice: 'Favourite was successfully created.' }
-        format.json { render :show, status: :created, location: [@user,:favourites] }
-      else
-        format.html { render :new }
-        format.json { render json: @favourite.errors, status: :unprocessable_entity }
+    if Favourite.exists?(favourite_params)
+      respond_to do |format|
+          format.json { render json: 'Movie is already on favourite list', status: 304 }
+      end
+    else
+      @favourite = current_user.favourites.new(favourite_params)
+
+      respond_to do |format|
+        if @favourite.save
+          format.json { render :show, status: :created, location: [current_user,:favourites] }
+        else
+          format.json { render json: @favourite.errors, status: :unprocessable_entity }
+        end
       end
     end
+
   end
 
   # DELETE /favourites/1
@@ -30,7 +37,7 @@ class FavouritesController < ApplicationController
   def destroy
     @favourite.destroy
     respond_to do |format|
-      format.html { redirect_to [@user,:favourites], notice: 'Favourite was successfully destroyed.' }
+      format.html { redirect_to [current_user,:favourites], notice: 'Favourite was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
