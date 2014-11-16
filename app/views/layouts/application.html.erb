@@ -126,8 +126,10 @@
             <h5>Site Map</h5>
             <ul>
               <li><%= link_to :Trending, root_path %></li>
-              <li><%= link_to :Favourites, user_favourites_path(current_user) %></li>
-              <li><%= link_to :Profile, edit_user_registration_path %></li>
+              <% if user_signed_in? %>
+                <li><%= link_to :Favourites, user_favourites_path(current_user) %></li>
+                <li><%= link_to :Profile, edit_user_registration_path %></li>
+              <% end %>
             </ul>
           </div>
           <div class='col-md-8 visible-md visible-lg'>
