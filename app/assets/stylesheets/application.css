@@ -35,16 +35,3 @@
 	top:0;
 	right:30px;
 }
-
-.badge-highlight {
-  animation-duration: 10s;
-  animation-name: highlight;
-}
-
-@keyframes highlight {
-	0%{ box-shadow: 0 0 0 4px $bounce-color; opacity:1;}
-    25%{ box-shadow: 0 0 0 1px $bounce-color; opacity:1;}
-    50%{ box-shadow: 0 0 0 7px $bounce-color; opacity:1; }
-    75%{ box-shadow: 0 0 0 4px $bounce-color; opacity:1;}
-    100%{ box-shadow: 0 0 0 5px $bounce-color; opacity:1;}
-}
