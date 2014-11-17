@@ -1,0 +1,19 @@
+<div class='trailer-addict-links'>
+
+	<div class='row'>
+		<div class='col-md-4'>
+			<h2>{{ first.title }}</h2>
+			<em>{{ prettifyDateLong first.pubDate }}</em>
+			<h4>All Videos</h4>
+			<ul>
+				{{#all}}
+					<li><a href='{{ link }}'>{{ title }}</a></li>
+				{{/all}}
+			</ul>
+		</div>
+		<div class='col-md-8'>
+			{{{ first.embed }}}
+		</div>
+	</div>
+
+</div>

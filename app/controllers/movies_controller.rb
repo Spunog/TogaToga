@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :edit, :update, :destroy, :refresh, :create]
-  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related, :reddit, :rt]
+  before_action :set_movie, only: [:show, :edit, :update, :destroy, :related, :reddit, :rt, :traileraddict]
 
   # GET /movies
   # GET /movies.json
@@ -19,6 +19,10 @@ class MoviesController < ApplicationController
 
   def rt
     @rt_critic_reviews = Feed.get_feeds(movie: @movie, site: 'rotten_tomatoes', clear_cache: :true)  
+  end
+
+  def traileraddict
+    @traileraddict = Feed.get_feeds(movie: @movie, site: 'trailer_addict', clear_cache: :true)  
   end
 
   def reddit

@@ -136,8 +136,23 @@
 			        		}
 				});
 			    break;
-			  case '#cinema-times':
-			  	$(itemSelector).empty().html('Cinema Times - WIP');
+			  case '#trailer-addict':
+			  	$(itemSelector).empty().html(getLoaderHTML());
+				infoURL = '/movies/traileraddict/' + movieID + '.json';
+				$.ajax({
+			        type: "GET",
+			        url:infoURL,
+			        dataType:'json',
+			        success: function( data, textStatus , jqXHR)
+			                  {
+			                  	var html = HandlebarsTemplates['pages/trailer_addict'](data);
+								$('#trailer-addict').empty().html(html);
+			                  },
+			        error: function(){
+			        			var errorHTML = '<div class="alert alert-warning col-md-6 col-md-offset-3" role="alert">Unable to retrieve Movie Trailers at this time. Please try again later.</div>';
+			        			$('#trailer-addict').empty().html(errorHTML);
+			        		}
+				});
 			    break;
 
 		  default:

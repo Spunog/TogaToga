@@ -28,6 +28,11 @@ class Feed < ActiveRecord::Base
 			# No cached version exists, fetch new data
 
 			case site
+			when "trailer_addict"
+				imdb_id = (movie.imdb_id.blank?) ?  "" : movie.imdb_id.gsub(/tt/, '')
+				feedURL = "http://api.traileraddict.com/?count=4&width=000&imdb=#{URI.encode(imdb_id)}"
+	      		logger.info "trailer addict JSON URL: #{feedURL} "
+	      		feedData = HTTParty.get(feedURL)
 			when "reddit"
 				feedURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(movie.title)}#&restrict_sr=on&sort=relevance&t=all"
 	      		logger.info "Reddit JSON URL: #{feedURL} "
@@ -62,7 +67,7 @@ class Feed < ActiveRecord::Base
 	private 
 
 	def self.max_feed_age
-		DateTime.now - 4.hours
+		DateTime.now - 6.hours
 	end
 
 end

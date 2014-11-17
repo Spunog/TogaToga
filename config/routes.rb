@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   get '/movies/related/:id', to: 'movies#related'
   get '/movies/rt/:id', to: 'movies#rt'
+  get '/movies/traileraddict/:id', to: 'movies#traileraddict'
 
   get 'movies/refresh'
   get 'movies/reddit'
