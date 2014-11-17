@@ -65,7 +65,7 @@ Handlebars.registerHelper("rt_rating_image", function(rating) {
 	// fresh, rotten, certified fresh, upright, want to see, spilled
 	var image = '';
 
-	if(!rating){
+	if(rating){
 		switch (rating.toLowerCase()) {
 		  case 'certified fresh':
 		    image = 'certified';

@@ -24,4 +24,8 @@ class User < ActiveRecord::Base
 	    end
  	end
 
+ 	def avatar
+ 		image = (self.image.blank?) ?  "missing_avatar.png" : self.image
+ 	end
+
 end

@@ -23,6 +23,7 @@ module Api
 
 		def top_critic_reviews_for_movie(rotten_tomatoes_id)
 			reviews = BASE_URI + "/movies/#{rotten_tomatoes_id}/reviews.json?apikey=#{@api_key}&review_type=top_critic"
+			logger.info "Rotten Tomatoes Critics JSON URL: #{reviews} "
 			response = HTTParty.get(reviews)
 			JSON.parse(response.body)
 		end
