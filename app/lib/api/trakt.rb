@@ -11,12 +11,12 @@ module Api
 		end
 
 		def getTrending
-			trending_uri = BASE_URI + '/movies/trending.json/#{URI.encode(@api_key)}' 
+			trending_uri = BASE_URI + "/movies/trending.json/#{URI.encode(@api_key)}"
 			HTTParty.get(trending_uri)
 		end
 
 		def getRelated(id)
-			related_uri = BASE_URI + '/movie/related.json/#{URI.encode(@api_key)}/' + id
+			related_uri = BASE_URI + "/movie/related.json/#{URI.encode(@api_key)}/" + id
 			HTTParty.get(related_uri)
 		end
 
