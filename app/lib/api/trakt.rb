@@ -1,6 +1,7 @@
 module Api
 	class Trakt
 		require "httparty"
+		require "uri" 
 		# Trending API - api.trakt.tv/movies/trending.json/ENV["TRAKT_API_KEY"]
 
 		BASE_URI = 'http://api.trakt.tv'
