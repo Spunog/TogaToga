@@ -68,9 +68,6 @@ class Movie < ActiveRecord::Base
 	      when 200
 	        result = '200 OK'
 
-	        # Clear Existing Trending Movies
-	        Trending.destroy_all()
-
 	        # Loop over movies
 	        response.each do |movie_item|
 	          movie, errorText = Movie.update_or_add_movie(:movie => movie_item, :addRank => true)
