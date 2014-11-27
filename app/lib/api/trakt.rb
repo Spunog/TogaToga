@@ -16,7 +16,7 @@ module Api
 		end
 
 		def getRelated(id)
-			related_uri = BASE_URI + "/movie/related.json/#{URI.encode(@api_key)}/" + id
+			related_uri = BASE_URI + "/movie/related.json/#{URI.encode(@api_key)}/#{URI.encode(id)}"
 			HTTParty.get(related_uri)
 		end
 
