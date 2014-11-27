@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class MoviesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @movie = movies(:one)
+    @movie.images.build(url: 'http://cloud2.dev/image.jpg', type_id: 'fanart')
+    @movie.images.build(url: 'http://cloud2.dev/image.jpg', type_id: 'poster')
+    @movie.save!
   end
 
   test "should get index" do
@@ -11,39 +16,24 @@ class MoviesControllerTest < ActionController::TestCase
     assert_not_nil assigns(:movies)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create movie" do
-    assert_difference('Movie.count') do
-      post :create, movie: { certification: @movie.certification, imdb_id: @movie.imdb_id, poster: @movie.poster, released: @movie.released, runtime: @movie.runtime, tagline: @movie.tagline, title: @movie.title, tmdb_id: @movie.tmdb_id, trailer: @movie.trailer, url: @movie.url, watchers: @movie.watchers, year: @movie.year }
-    end
-
-    assert_redirected_to movie_path(assigns(:movie))
-  end
-
   test "should show movie" do
     get :show, id: @movie
     assert_response :success
   end
 
-  test "should get edit" do
-    get :edit, id: @movie
+  test "should get rotten tomatoes json" do
+    get :rt, id: @movie, :format => Mime::JSON
     assert_response :success
   end
 
-  test "should update movie" do
-    patch :update, id: @movie, movie: { certification: @movie.certification, imdb_id: @movie.imdb_id, poster: @movie.poster, released: @movie.released, runtime: @movie.runtime, tagline: @movie.tagline, title: @movie.title, tmdb_id: @movie.tmdb_id, trailer: @movie.trailer, url: @movie.url, watchers: @movie.watchers, year: @movie.year }
-    assert_redirected_to movie_path(assigns(:movie))
-  end
+  test "should get reddit json" do
+    get :reddit, id: @movie, :format => Mime::JSON
+    assert_response :success
+  end  
 
-  test "should destroy movie" do
-    assert_difference('Movie.count', -1) do
-      delete :destroy, id: @movie
-    end
+  test "should get related json" do
+    get :related, id: @movie, :format => Mime::JSON
+    assert_response :success
+  end  
 
-    assert_redirected_to movies_path
-  end
 end

@@ -1,29 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  year: 1
-  released: 1
-  url: MyString
-  trailer: MyString
-  runtime: 1
-  tagline: MyString
-  certification: MyString
-  imdb_id: MyString
-  tmdb_id: MyString
-  poster: MyString
-  watchers: 1
+  title: 'Test1'
+  year: 2001
+  poster: 'http://cloud2.dev/image1.jpg'
+  overview: 'main text'
+  imdb_id: 'tt234231'
+  released: '2014-03-20'
 
 two:
-  title: MyString
-  year: 1
-  released: 1
-  url: MyString
-  trailer: MyString
-  runtime: 1
-  tagline: MyString
-  certification: MyString
-  imdb_id: MyString
-  tmdb_id: MyString
-  poster: MyString
-  watchers: 1
+  title: 'Test2'
+  year: 2001
+  poster: 'http://cloud2.dev/image2.jpg'
+  overview: 'main text'
+  imdb_id: 'tt234232'
+  released: '2014-07-20'
