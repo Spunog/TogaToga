@@ -33,6 +33,11 @@ class MoviesController < ApplicationController
     @relatedMovies = Movie.related(movie: @movie)
   end
 
+  def christmas
+    @movie = Movie.first()
+    @christmasList = Feed.get_feeds(movie: @movie, site: 'christmas', clear_cache: :false)
+  end
+
   # GET /movies/new
   def new
     @movie = Movie.new

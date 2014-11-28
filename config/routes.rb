@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :watches, :path => "watched"     
   end
 
+  get '/movies/christmas/', to: 'movies#christmas'
   get '/movies/related/:id', to: 'movies#related'
   get '/movies/rt/:id', to: 'movies#rt'
   get '/movies/traileraddict/:id', to: 'movies#traileraddict'

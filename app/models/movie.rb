@@ -51,7 +51,6 @@ class Movie < ActiveRecord::Base
 	end
 
 	# Class Methods
-
 	def self.refresh_listings
 
 		if ENV['RAILS_ENV'] == "development"

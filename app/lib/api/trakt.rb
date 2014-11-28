@@ -20,5 +20,16 @@ module Api
 			HTTParty.get(related_uri)
 		end
 
+		def getChristmsList()
+			feed = getUserList('falchie','christmas-movies')
+		end
+
+		private
+
+		def getUserList(user,slug)
+			related_uri = BASE_URI + "/user/list.json/#{URI.encode(@api_key)}/#{URI.encode(user)}/#{URI.encode(slug)}"
+			HTTParty.get(related_uri)
+		end
+
 	end
 end
