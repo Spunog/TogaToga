@@ -33,10 +33,6 @@ class Feed < ActiveRecord::Base
 				feedURL = "http://api.traileraddict.com/?count=4&width=000&imdb=#{URI.encode(imdb_id)}"
 	      		logger.info "trailer addict JSON URL: #{feedURL} "
 	      		feedData = HTTParty.get(feedURL)
-			when "christmas"
-				logger.info "Fetching new Christmas data using Trakt API"
-				trakt_api = Api::Trakt.new(:apikey => ENV["TRAKT_API_KEY"])    
-				feedData = trakt_api.getChristmsList()
 			when "reddit"
 				feedURL = "http://www.reddit.com/r/movies/search.json?q=subreddit%3Amovies+#{URI.encode(movie.title)}#&restrict_sr=on&sort=relevance&t=all"
 	      		logger.info "Reddit JSON URL: #{feedURL} "

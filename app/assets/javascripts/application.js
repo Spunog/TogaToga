@@ -22,7 +22,6 @@
 //= require site
 //= require favourites
 //= require movies
-//= require christmas
 
 // Turbo Links must be last!
 //= require turbolinks

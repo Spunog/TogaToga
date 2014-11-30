@@ -20,10 +20,6 @@ module Api
 			HTTParty.get(related_uri)
 		end
 
-		def getChristmsList()
-			feed = getUserList('falchie','christmas-movies')
-		end
-
 		private
 
 		def getUserList(user,slug)
