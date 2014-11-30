@@ -1,0 +1,23 @@
+# Secret Keys. Should not be added to source control! (but backout outside public repo!)
+# Works well with the Figaro Gem
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #  
+#                                                                                     #
+#   SAMPLE FILE: 	Variables should be updated and the file saved as Application.yml #
+# 					It stores all keys needed by the app for apis etc.                #
+#                                                                                     #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+# E-mail - Mailgun.org
+EMAIL_DOMAIN: #ADDRESS GOES HERE
+EMAIL_USERNAME: #USERNAME GOES HERE
+EMAIL_PASSWORD: #PASSWORD GOES HERE
+SECRET_TOKEN: #SECRET TOKEN GOES HERE
+
+# API KEYS
+TRAKT_API_KEY: #API KEY GOES HERE
+ROTTEN_TOMATOES_API_KEY: #API KEY GOES HERE
+
+# API Facebook
+FACEBOOK_APP_ID: #FACEBOOK ID GOES HERE
+FACEBOOK_APP_SECRET: #FACEBOOK SECRET GOES HERE
