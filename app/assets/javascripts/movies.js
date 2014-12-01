@@ -164,6 +164,13 @@
 
 	$('.js-movie-tabs a:first').tab('show');
 
+    $('.js-add-to-favs').on('click',function(event){
+    	event.preventDefault();
+    	var movieID = $(this).data('id');
+    	var userID = $(this).data('userid');
+    	favourite_create(movieID,userID);
+    });
+
 }
 )();
 

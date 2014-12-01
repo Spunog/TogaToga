@@ -16,6 +16,7 @@ module Api
 		def find_movie_by_imdb_id(imdb_id)
 			imdb_id = imdb_id.gsub! 'tt', ''
 			movie_url = BASE_URI + "/movie_alias.json?apikey=#{@api_key}&type=imdb&id=#{URI.encode(imdb_id)}"
+			#Rails.logger.info "Fetching IMDB using RT API: #{movie_url}"
 			response = HTTParty.get(movie_url)
 			JSON.parse(response.body)
 		end

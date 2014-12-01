@@ -44,6 +44,12 @@
                 </span>
               <% end %>
 
+              <% if user_signed_in? %>
+                <a class='js-add-to-favs btn btn-default btn-xs' style='margin-left:0.6em;' data-id="<%= @movie.id %>" data-userid="<%= current_user.id %>" href="#">Add To Favourites</a>
+              <% end %>
+
+              <!-- <a href="#" class="btn btn-default js-add-to-favs">Add To Favourites</a> -->
+
             </div>
 
           </div><!-- end col -->
